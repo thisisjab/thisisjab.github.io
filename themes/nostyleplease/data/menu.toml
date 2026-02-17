@@ -6,7 +6,7 @@ title = "info"
 
   [[entries.entries]]
   title = "about me"
-  url = "https://github.com/about/"
+  url = "about"
 
   [[entries.entries]]
   title = "github repo"
