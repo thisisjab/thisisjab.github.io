@@ -1,12 +1,21 @@
 // -------------- THEME SWITCHER -------------- //
-@mixin theme($--bg-color, $--primary-text-color, $--secondary-text-color, $--link-color, $--visited-link-color, $--highlight) {
+@mixin theme(
+  $--bg-color,
+  $--primary-text-color,
+  $--secondary-text-color,
+  $--link-color,
+  $--visited-link-color,
+  $--highlight
+) {
   background-color: $--bg-color;
 
   color: $--primary-text-color;
 
   a {
     color: $--link-color;
-    &:visited { color: $--visited-link-color; }
+    // &:visited {
+    //   color: $--visited-link-color;
+    // }
   }
 
   details {
@@ -33,9 +42,11 @@
   *:target {
     background: $--highlight;
     color: $--primary-text-color;
-   }
+  }
 
-  table, th, td {
+  table,
+  th,
+  td {
     border: thin solid $--primary-text-color;
   }
 
@@ -44,35 +55,90 @@
     padding: 1rem;
   }
 
-  figcaption { color: $--secondary-text-color; }
+  figcaption {
+    color: $--secondary-text-color;
+  }
 
   blockquote {
     border: thin solid $--primary-text-color;
   }
 }
 
+// @mixin dark-appearance {
+//   @include theme(#000000, #ffffff, #000000, #79a8ff, #f78fe7, #2f3849); // modus-vivendi
+// }
+
+// @mixin light-appearance {
+//   @include theme(#ffffff, #000000, #595959, #3548cf, #8f0075, #dae5ec); // modus-operandi
+// }
+
 @mixin dark-appearance {
-  @include theme(#000000, #ffffff, #000000, #79a8ff, #f78fe7, #2f3849); // modus-vivendi
+  /* Nightfox Carbon Dark */
+  @include theme(
+    #161616,
+    // bg: carbon black
+    #f2f4f8,
+    // text: primary white/blue-gray
+    #b6beca,
+    // secondary text
+    #78a9ff,
+    // links: blue
+    #be95ff,
+    // visited: purple
+    #2a2a2a // highlight: selection/ui-bg
+  );
 }
 
 @mixin light-appearance {
-  @include theme(#ffffff, #000000, #595959, #3548cf, #8f0075, #dae5ec); // modus-operandi
+  /* GitHub Light */
+  @include theme(
+    #ffffff,
+    // bg: white
+    #1f2328,
+    // text: dark gray/black
+    #657b83,
+    // secondary text
+    #0969da,
+    // links: github blue
+    #8250df,
+    // visited: github purple
+    #fff8c5 // highlight: yellow alert/selection
+  );
 }
 
-body[a="dark"] { @include dark-appearance; }
-body[a="light"] { @include light-appearance; }
+body[a="dark"] {
+  @include dark-appearance;
+}
+body[a="light"] {
+  @include light-appearance;
+}
 
 @media (prefers-color-scheme: dark) {
-  body[a="auto"] { @include dark-appearance; }
+  body[a="auto"] {
+    @include dark-appearance;
+  }
 }
 
 @media (prefers-color-scheme: light) {
-  body[a="auto"] { @include light-appearance; }
+  body[a="auto"] {
+    @include light-appearance;
+  }
 }
 
 // -------------------------------------------- //
 
-html { height: 100%; }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--primary-text) !important;
+}
+
+html {
+  height: 100%;
+}
 
 body {
   font-family: monospace;
@@ -83,15 +149,27 @@ body {
   overflow-wrap: break-word;
 }
 
-h2, h3, h4, h5, h6 { margin-top: 1.5rem; }
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 1.5rem;
+}
 
-p { margin: 1rem 0; }
+p {
+  margin: 1rem 0;
+}
 
-li { margin: 0.4rem 0; }
+li {
+  margin: 0.4rem 0;
+}
 
 a {
-  text-decoration: none;
-  &:hover { text-decoration: underline; }
+  // text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 hr {
@@ -99,8 +177,12 @@ hr {
   border: 0;
   margin: 2rem 0;
 
-  &:before { content: '/////' }
-  &:after { content: attr(data-content) '/////' }
+  &:before {
+    content: "/////";
+  }
+  &:after {
+    content: attr(data-content) "/////";
+  }
 }
 
 pre {
@@ -108,9 +190,13 @@ pre {
   overflow-x: auto; /* Fix pre content overflowing parent without scroll bar */
 }
 
-table { width: 100%; }
+table {
+  width: 100%;
+}
 
-table, th, td {
+table,
+th,
+td {
   border-collapse: collapse;
   padding: 0.4rem;
 }
@@ -137,7 +223,9 @@ code.has-jax {
 blockquote {
   padding: 1rem;
 
-  p { margin: 0; }
+  p {
+    margin: 0;
+  }
 }
 
 img {
@@ -180,118 +268,90 @@ details[open] summary {
   padding: 1rem;
 }
 
-// My custom styles 
+// My custom styles
 
 @font-face {
   font-family: "Lora";
-  src: url("../fonts/lora.ttf") format("truetype");
+  src: url("/fonts/lora.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Lora";
-  src: url("../fonts/lora-italic.ttf") format("truetype");
+  src: url("/fonts/lora-italic.ttf") format("truetype");
   font-weight: 100 900;
   font-style: italic;
 }
 
 @font-face {
   font-family: "JetBrains Mono";
-  src: url("../fonts/jetbrains-mono.ttf") format("truetype");
+  src: url("/fonts/jetbrains-mono.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
 }
 
 @font-face {
   font-family: "JetBrains Mono";
-  src: url("../fonts/jetbrains-mono-italic.ttf") format("truetype");
+  src: url("/fonts/jetbrains-mono-italic.ttf") format("truetype");
   font-weight: 100 900;
   font-style: italic;
 }
 
 @font-face {
-    font-family: 'Writer';
-    src: url('../fonts/PPWriter-Thin.otf') format('opentype');
-    font-weight: 100;
-    font-style: normal;
+  font-family: "Writer";
+  src: url("/fonts/Writer-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Writer';
-    src: url('../fonts/PPWriter-ThinText.otf') format('opentype');
-    font-weight: 200;
-    font-style: normal;
+  font-family: "Writer";
+  src: url("/fonts/Writer-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'Writer';
-    src: url('../fonts/PPWriter-Book.otf') format('opentype');
-    font-weight: 300;
-    font-style: normal;
+  font-family: "Writer";
+  src: url("/fonts/Writer-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Writer';
-    src: url('../fonts/PPWriter-Regular.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
+  font-family: "Writer";
+  src: url("/fonts/Writer-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'Writer';
-    src: url('../fonts/PPWriter-RegularText.otf') format('opentype');
-    font-weight: 450;
-    font-style: normal;
+  font-family: "Writer";
+  src: url("/fonts/Writer-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Writer';
-    src: url('../fonts/PPWriter-RegularItalic.otf') format('opentype');
-    font-weight: 400;
-    font-style: italic;
+  font-family: "Writer";
+  src: url("/fonts/Writer-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'Writer';
-    src: url('../fonts/PPWriter-Bold.otf') format('opentype');
-    font-weight: 700;
-    font-style: normal;
+  font-family: "Writer";
+  src: url("/fonts/Writer-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Writer';
-    src: url('../fonts/PPWriter-BoldText.otf') format('opentype');
-    font-weight: 750;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Writer';
-    src: url('../fonts/PPWriter-BoldItalic.otf') format('opentype');
-    font-weight: 700;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: 'Writer';
-    src: url('../fonts/PPWriter-Ultrabold.otf') format('opentype');
-    font-weight: 800;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Writer';
-    src: url('../fonts/PPWriter-UltraboldItalic.otf') format('opentype');
-    font-weight: 800;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: 'Writer';
-    src: url('../fonts/PPWriter-BlackItalic.otf') format('opentype');
-    font-weight: 900;
-    font-style: italic;
+  font-family: "Writer";
+  src: url("/fonts/Writer-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
 }
 
 h1,
@@ -305,13 +365,20 @@ h6 {
 }
 
 body {
-  font-family: "Writer", monospace !important;
+  font-family: "Writer", serif !important;
+  font-weight: 400;
+}
+
+p {
+  text-align: justify;
+  line-height: 1.5rem;
+  letter-spacing: -0.09em !important;
 }
 
 code,
 pre,
 kbd,
 samp {
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-family: "JetBrains Mono", monospace !important;
 }

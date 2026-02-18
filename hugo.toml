@@ -3,6 +3,27 @@ languageCode = 'en-us'
 title = 'thisisjab'
 theme = 'nostyleplease'
 
+cascade.params = { toc = true }
+
+[markup]
+  [markup.highlight]
+    codeFences         = true
+    guessSyntax        = false
+    lineNos            = false 
+    noClasses          = true
+    style              = 'modus-vivendi'
+
+  [markup.tableOfContents]
+    startLevel = 1
+    endLevel   = 3
+    ordered    = false
+
 [params]
   style = "css/main.scss"
-
+  
+  [params.theme_config]
+    appearance        = "auto"
+    back_home_text    = "< go back"
+    date_format       = "2006-01-02"
+    isListGroupByDate = false
+    isShowFooter      = false
