@@ -179,3 +179,139 @@ details[open] summary {
 .toc {
   padding: 1rem;
 }
+
+// My custom styles 
+
+@font-face {
+  font-family: "Lora";
+  src: url("../fonts/lora.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Lora";
+  src: url("../fonts/lora-italic.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/jetbrains-mono.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/jetbrains-mono-italic.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: italic;
+}
+
+@font-face {
+    font-family: 'Writer';
+    src: url('../fonts/PPWriter-Thin.otf') format('opentype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Writer';
+    src: url('../fonts/PPWriter-ThinText.otf') format('opentype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Writer';
+    src: url('../fonts/PPWriter-Book.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Writer';
+    src: url('../fonts/PPWriter-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Writer';
+    src: url('../fonts/PPWriter-RegularText.otf') format('opentype');
+    font-weight: 450;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Writer';
+    src: url('../fonts/PPWriter-RegularItalic.otf') format('opentype');
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Writer';
+    src: url('../fonts/PPWriter-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Writer';
+    src: url('../fonts/PPWriter-BoldText.otf') format('opentype');
+    font-weight: 750;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Writer';
+    src: url('../fonts/PPWriter-BoldItalic.otf') format('opentype');
+    font-weight: 700;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Writer';
+    src: url('../fonts/PPWriter-Ultrabold.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Writer';
+    src: url('../fonts/PPWriter-UltraboldItalic.otf') format('opentype');
+    font-weight: 800;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Writer';
+    src: url('../fonts/PPWriter-BlackItalic.otf') format('opentype');
+    font-weight: 900;
+    font-style: italic;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Lora", serif !important;
+  font-weight: 500;
+}
+
+body {
+  font-family: "Writer", monospace !important;
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-size: .8rem;
+  font-family: "JetBrains Mono", monospace !important;
+}
