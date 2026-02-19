@@ -14,3 +14,9 @@ Writing this blog, alongside reading the thoughts of others, refreshes a mind th
 I’ll be focusing on software engineering, computer networks, DevOps, and personal career advice (mostly). Optimistically, some folks out there might find this corner of the internet useful, or at least cozy.
 
 With every fiber of my being, I hope you do too.
+
+```go
+func main() {
+    fmt.Println("hello baby")
+}
+```
