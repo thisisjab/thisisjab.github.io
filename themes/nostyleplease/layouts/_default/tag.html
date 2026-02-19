@@ -1,0 +1,19 @@
+{{ define "main" }}
+<div class="post">
+  <header class="post-header" style="display: flex; justify-content: space-between; align-items: center;">
+    <h2>Posts tagged "{{ .Title | lower }}"</h2>
+    {{ partial "back_link.html" .}}
+  </header>
+
+  <div class="post-content">
+    <ul class="post-list">
+      {{ range .Data.Pages }}
+        <li>
+          <a href="{{ .Permalink }}">{{ .Title }}</a>
+          <span class="post-date">{{ .Date.Format "2006-02-03" }}</span>
+        </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>
+{{ end }}

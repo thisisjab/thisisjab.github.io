@@ -3,6 +3,8 @@ languageCode = 'en-us'
 title = 'thisisjab'
 theme = 'nostyleplease'
 
+taxonomies = { tag = "tags" }
+
 cascade.params = { toc = false, tocBorder = false }
 
 [markup]

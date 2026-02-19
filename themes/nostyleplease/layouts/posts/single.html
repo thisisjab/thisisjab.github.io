@@ -10,5 +10,15 @@
     {{ end }}
 
     {{ .Content }}
+
+       {{ if .Params.tags }}
+            <hr>
+            <div class="post-tags">
+                <strong>Tags:</strong>
+            {{ range .Params.tags }}
+                <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/">#{{ . }}</a>
+            {{ end }}
+        </div>
+    {{ end }} 
 </article>
 {{ end }}

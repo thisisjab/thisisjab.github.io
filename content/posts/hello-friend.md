@@ -2,7 +2,7 @@
 date = '2026-02-17T22:42:28+03:30'
 draft = false
 title = 'Hello, friend!'
-categories = ["personal"]
+tags = ["personal"]
 +++
 
 Hi, friend. (With Elliot Alderson's tone). This is my first writing that I am posting on my corner of the internet—my so-called weblog.
@@ -14,9 +14,3 @@ Writing this blog, alongside reading the thoughts of others, refreshes a mind th
 I’ll be focusing on software engineering, computer networks, DevOps, and personal career advice (mostly). Optimistically, some folks out there might find this corner of the internet useful, or at least cozy.
 
 With every fiber of my being, I hope you do too.
-
-```go
-func main() {
-    fmt.Println("hello baby")
-}
-```

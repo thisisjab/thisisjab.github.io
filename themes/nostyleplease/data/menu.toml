@@ -1,35 +1,38 @@
 [[entries]]
 title = "all posts"
 
-  [entries.post_list]
-  section = 'posts'
-  limit = 10
-  show_more = true
-  show_more_text = "See archive..."
-  show_more_url = "posts"
-
+[entries.post_list]
+section = 'posts'
+limit = 10
+show_more = true
+show_more_text = "See archive..."
+show_more_url = "posts"
 
 [[entries]]
 title = "useful links"
 
-  # [[entries.entries]]
-  # title = "a (nearly) no-CSS, fast, minimalist Hugo theme ported from <a href='https://github.com/riggraz/no-style-please'>riggraz/no-style-please</a>."
+[[entries.entries]]
+title = 'tags archive'
+url = "/tags"
 
-  # [[entries.entries]]
-  # title = "about me"
-  # url = "about"
+# [[entries.entries]]
+# title = "a (nearly) no-CSS, fast, minimalist Hugo theme ported from <a href='https://github.com/riggraz/no-style-please'>riggraz/no-style-please</a>."
 
-  [[entries.entries]]
-  title = "github repo"
-  url = "https://github.com/thisisjab/"
+# [[entries.entries]]
+# title = "about me"
+# url = "about"
 
-  [[entries.entries]]
-  title = "linkedin page"
-  url = "https://linkedin.com/in/thisisjab"
+[[entries.entries]]
+title = "github repo"
+url = "https://github.com/thisisjab/"
 
-  [[entries.entries]]
-  title = "my email"
-  url = "mailto:heythisisjab@gmail.com"
+[[entries.entries]]
+title = "linkedin page"
+url = "https://linkedin.com/in/thisisjab"
+
+[[entries.entries]]
+title = "my email"
+url = "mailto:heythisisjab@gmail.com"
 
 
 # [[entries]]
@@ -41,9 +44,9 @@ title = "useful links"
 #   show_more_text = "See more posts..."
 #   show_more_url = "posts"
 
-[[entries]]
-title = "rss"
-url = "index.xml"
+# [[entries]]
+# title = "rss"
+# url = "index.xml"
 
 # [[entries]]
 # title = "another list"
