@@ -1,12 +1,12 @@
 [[entries]]
-title = "info"
+title = "useful links"
 
   # [[entries.entries]]
   # title = "a (nearly) no-CSS, fast, minimalist Hugo theme ported from <a href='https://github.com/riggraz/no-style-please'>riggraz/no-style-please</a>."
 
-  [[entries.entries]]
-  title = "about me"
-  url = "about"
+  # [[entries.entries]]
+  # title = "about me"
+  # url = "about"
 
   [[entries.entries]]
   title = "github repo"
@@ -16,6 +16,9 @@ title = "info"
   title = "linkedin page"
   url = "https://linkedin.com/in/thisisjab"
 
+  [[entries.entries]]
+  title = "my email"
+  url = "mailto:heythisisjab@gmail.com"
 
 [[entries]]
 title = "all posts"
