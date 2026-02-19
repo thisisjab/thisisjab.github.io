@@ -3,7 +3,7 @@ languageCode = 'en-us'
 title = 'thisisjab'
 theme = 'nostyleplease'
 
-cascade.params = { toc = true }
+cascade.params = { toc = false, tocBorder = false }
 
 [markup]
   [markup.highlight]
@@ -11,7 +11,8 @@ cascade.params = { toc = true }
     guessSyntax        = false
     lineNos            = false 
     noClasses          = true
-    style              = 'modus-vivendi'
+    style = 'catppuccin-frappe'
+    # style              = 'modus-vivendi'
 
   [markup.tableOfContents]
     startLevel = 1
@@ -26,4 +27,4 @@ cascade.params = { toc = true }
     back_home_text    = "< go back"
     date_format       = "2006-01-02"
     isListGroupByDate = false
-    isShowFooter      = false
+    isShowFooter      = true 

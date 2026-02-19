@@ -1,12 +1,13 @@
 {{ define "main" }}
 
 <header>
+  <div style="display: flex; justify-content: space-between; align-items: center;">
     <h1>{{ $.Site.Title }}</h1>
-    {{- if $.Site.Params.theme_config.show_description -}}
-        <p>{{ $.Site.Params.description }}</p>
-    {{- end -}}
+    <button class="theme-toggle" aria-label="Toggle theme">🌓</button>
+  </div>
+  {{- if $.Site.Params.theme_config.show_description -}}
+  <p>{{ $.Site.Params.description }}</p>
+  {{- end -}}
 </header>
-{{ .Content }}
-{{ partial "menu_item.html" (dict "context" . "collection" $.Site.Data.menu.entries) }}
-
-{{ end }}
+{{ .Content }} {{ partial "menu_item.html" (dict "context" . "collection"
+$.Site.Data.menu.entries) }} {{ end }}

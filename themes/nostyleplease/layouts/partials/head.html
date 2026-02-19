@@ -1,23 +1,54 @@
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  {{ if .IsPage }} <meta name="description" content="{{ .Summary }}">  {{ end }}
+  {{ if .IsPage }}
+  <meta name="description" content="{{ .Summary }}" />
+  {{ end }}
 
   <title>
-    {{ if not .IsHome }}
-      {{ .Title }}
-    {{ else }}
-      {{ $.Site.Title }}
-    {{ end }}
+    {{ if not .IsHome }} {{ .Title }} {{ else }} {{ $.Site.Title }} {{ end }}
   </title>
 
+  <link
+    rel="shortcut icon"
+    type="image/x-icon"
+    href="{{ $.Site.Params.favicon | relURL }}"
+  />
+  {{ $options := (dict "outputStyle" "compressed" "enableSourceMap" (not
+  hugo.IsProduction)) }} {{ $sass := resources.Get "css/main.scss" }} {{ $style
+  := $sass | css.Sass $options | resources.Fingerprint "sha512" }}
+  <link
+    rel="stylesheet"
+    href="{{ $style.Permalink | relURL }}"
+    integrity="{{ $style.Data.Integrity }}"
+  />
+  {{ if .Params.mathjax }} {{ partial "mathjax.html" . }} {{ end }} 
+    <script>
+      // Simple theme toggle
+      function initThemeToggle() {
+        const button = document.querySelector(".theme-toggle");
+        const body = document.body;
 
-  <link rel="shortcut icon" type="image/x-icon" href="{{ $.Site.Params.favicon | relURL }}" />
-  {{ $options := (dict "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction)) }}
-  {{ $sass := resources.Get "css/main.scss" }}
-  {{ $style := $sass | css.Sass $options | resources.Fingerprint "sha512" }}
-  <link rel="stylesheet" href="{{ $style.Permalink | relURL }}" integrity="{{ $style.Data.Integrity }}" />
-  {{ if .Params.mathjax }} {{ partial "mathjax.html" . }} {{ end }}
+        // Check for saved preference
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme) {
+          body.setAttribute("a", savedTheme);
+        }
+
+        button.addEventListener("click", () => {
+          const currentTheme = body.getAttribute("a");
+          const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+          body.setAttribute("a", newTheme);
+          localStorage.setItem("theme", newTheme);
+        });
+
+      
+      }
+
+      // Initialize when DOM is ready
+      document.addEventListener("DOMContentLoaded", initThemeToggle);
+    </script>
 </head>

@@ -81,37 +81,61 @@
 //   @include theme(#ffffff, #000000, #595959, #3548cf, #8f0075, #dae5ec); // modus-operandi
 // }
 
+// @mixin dark-appearance {
+//   /* Nightfox Carbon Dark */
+//   @include theme(
+//     #161616,
+//     // bg: carbon black
+//     #f2f4f8,
+//     // text: primary white/blue-gray
+//     #b6beca,
+//     // secondary text
+//     #78a9ff,
+//     // links: blue
+//     #be95ff,
+//     // visited: purple
+//     #2a2a2a // highlight: selection/ui-bg
+//   );
+// }
+
+// @mixin light-appearance {
+//   /* GitHub Light */
+//   @include theme(
+//     #ffffff,
+//     // bg: white
+//     #1f2328,
+//     // text: dark gray/black
+//     #657b83,
+//     // secondary text
+//     #0969da,
+//     // links: github blue
+//     #8250df,
+//     // visited: github purple
+//     #fff8c5 // highlight: yellow alert/selection
+//   );
+// }
+
 @mixin dark-appearance {
-  /* Nightfox Carbon Dark */
+  /* Catppuccin Mocha */
   @include theme(
-    #161616,
-    // bg: carbon black
-    #f2f4f8,
-    // text: primary white/blue-gray
-    #b6beca,
-    // secondary text
-    #78a9ff,
-    // links: blue
-    #be95ff,
-    // visited: purple
-    #2a2a2a // highlight: selection/ui-bg
+    #1e1e2e,    // bg: base
+    #cdd6f4,    // text: text
+    #9399b2,    // secondary text: subtext0
+    #89b4fa,    // links: blue
+    #cba6f7,    // visited: mauve
+    #313244     // highlight: surface0
   );
 }
 
 @mixin light-appearance {
-  /* GitHub Light */
+  /* Catppuccin Latte */
   @include theme(
-    #ffffff,
-    // bg: white
-    #1f2328,
-    // text: dark gray/black
-    #657b83,
-    // secondary text
-    #0969da,
-    // links: github blue
-    #8250df,
-    // visited: github purple
-    #fff8c5 // highlight: yellow alert/selection
+    #eff1f5,    // bg: base
+    #4c4f69,    // text: text
+    #6c6f85,    // secondary text: subtext0
+    #1e66f5,    // links: blue
+    #8839ef,    // visited: mauve
+    #e6e9ef     // highlight: surface0
   );
 }
 
@@ -369,7 +393,7 @@ body {
   font-weight: 400;
 }
 
-p {
+p, ul, li {
   text-align: justify;
   line-height: 1.5rem;
   letter-spacing: -0.09em !important;
@@ -381,4 +405,27 @@ kbd,
 samp {
   font-size: 0.8rem;
   font-family: "JetBrains Mono", monospace !important;
+}
+
+.theme-toggle {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle .sun,
+.theme-toggle .moon {
+  transition: all 0.2s ease;
+}
+
+body[a="dark"] .theme-toggle .sun {
+  display: none;
+}
+
+body[a="light"] .theme-toggle .moon {
+  display: none;
 }
