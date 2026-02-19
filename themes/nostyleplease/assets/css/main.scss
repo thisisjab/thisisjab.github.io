@@ -18,6 +18,15 @@
     // }
   }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $--secondary-text-color;
+  }
+
   details {
     border: thin solid $--primary-text-color;
   }
@@ -126,15 +135,6 @@ body[a="light"] {
 }
 
 // -------------------------------------------- //
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: var(--primary-text) !important;
-}
 
 html {
   height: 100%;
