@@ -393,8 +393,11 @@ body {
   font-weight: 400;
 }
 
-p, ul, li {
+p {
   text-align: justify;
+}
+
+p, ul, li {
   line-height: 1.5rem;
   letter-spacing: -0.09em !important;
 }

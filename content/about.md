@@ -4,7 +4,7 @@ draft = false
 title = 'About me'
 +++
 
-Hey! I am Jab (M. Hossein Jabbarzadeh to be precise). Welcome to my corner of the internet. I’m a final-year Computer Engineering student and a backend engineer with three years of professional experience. This blog is my digital workbench—a place where I document academic deep dives, real-world engineering challenges, and the "geeky stuff" that keeps me up at night.
+Hey! I am Jab (M. Hossein Jabbarzadeh to be precise). Welcome to my corner of the internet. I’m a final-year Computer Engineering student and a backend engineer with three years of professional experience. This blog is my digital workbench — a place where I document academic deep dives, real-world engineering challenges, and the "geeky stuff" that keeps me up at night.
 
 ---
 
