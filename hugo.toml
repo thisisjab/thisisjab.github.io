@@ -1,6 +1,6 @@
 baseURL = 'https://thisisjab.github.io/'
 languageCode = 'en-us'
-title = 'thisisjab'
+title = '<thisisjab/>'
 theme = 'nostyleplease'
 
 taxonomies = { tag = "tags" }
