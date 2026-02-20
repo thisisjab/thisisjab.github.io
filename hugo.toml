@@ -26,7 +26,7 @@ cascade.params = { toc = false, tocBorder = false }
   
   [params.theme_config]
     appearance        = "auto"
-    back_home_text    = "< go back"
+    back_home_text    = "< home page"
     date_format       = "2006-01-02"
     isListGroupByDate = false
     isShowFooter      = true 

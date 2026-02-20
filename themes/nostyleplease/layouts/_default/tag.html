@@ -1,8 +1,10 @@
 {{ define "main" }}
 <div class="post">
-  <header class="post-header" style="display: flex; justify-content: space-between; align-items: center;">
-    <h2>Posts tagged "{{ .Title | lower }}"</h2>
+  <header class="post-header">
+  <div style="display: flex; justify-content: end;">
     {{ partial "back_link.html" .}}
+  </div>
+    <h2>Posts tagged "{{ .Title | lower }}"</h2>
   </header>
 
   <div class="post-content">
