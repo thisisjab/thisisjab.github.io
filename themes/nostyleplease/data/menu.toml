@@ -1,19 +1,5 @@
 [[entries]]
-title = "all posts"
-
-[entries.post_list]
-section = 'posts'
-limit = 10
-show_more = true
-show_more_text = "See archive..."
-show_more_url = "posts"
-
-[[entries]]
-title = "useful links"
-
-[[entries.entries]]
-title = 'tags archive'
-url = "/tags"
+title = "Useful Links"
 
 # [[entries.entries]]
 # title = "a (nearly) no-CSS, fast, minimalist Hugo theme ported from <a href='https://github.com/riggraz/no-style-please'>riggraz/no-style-please</a>."
@@ -23,17 +9,31 @@ url = "/tags"
 # url = "about"
 
 [[entries.entries]]
-title = "github repo"
+title = "Github Repo"
 url = "https://github.com/thisisjab/"
 
 [[entries.entries]]
-title = "linkedin page"
+title = "Linkedin Page"
 url = "https://linkedin.com/in/thisisjab"
 
 [[entries.entries]]
-title = "my email"
+title = "My Email"
 url = "mailto:heythisisjab@gmail.com"
 
+[[entries.entries]]
+title = 'Tags Archive'
+url = "/tags"
+
+
+[[entries]]
+title = "All Posts"
+
+[entries.post_list]
+section = 'posts'
+limit = 10
+show_more = true
+show_more_text = "See archive..."
+show_more_url = "posts"
 
 # [[entries]]
 # title = "posts by category"

@@ -10,9 +10,12 @@ cascade.params = { toc = false, tocBorder = false }
 [markup]
   [markup.highlight]
     codeFences         = true
+    anchorLineNos = true
     guessSyntax        = false
-    lineNos            = false 
-    noClasses          = true
+    lineNos            = true 
+    lineNumbersInTable = false 
+    noClasses          = true 
+    hl_inline = false 
     style = 'catppuccin-frappe'
     # style              = 'modus-vivendi'
 
@@ -23,10 +26,10 @@ cascade.params = { toc = false, tocBorder = false }
 
 [params]
   style = "css/main.scss"
-  
+
   [params.theme_config]
     appearance        = "auto"
     back_home_text    = "< home page"
     date_format       = "2006-01-02"
     isListGroupByDate = false
-    isShowFooter      = true 
+    isShowFooter      = true
