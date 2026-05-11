@@ -371,6 +371,7 @@ body {
     position: relative;
 }
 
+/* 
 body:before {
     content: "";
     z-index: -1;
@@ -386,7 +387,7 @@ body:before {
     left: 0;
     position: absolute;
 }
-
+ */
 .highlight {
     overflow: auto;
 }
