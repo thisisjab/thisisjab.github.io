@@ -149,6 +149,42 @@
     );
 }
 
+@mixin dark-appearance {
+    /* Matrix Dark Theme */
+    @include theme(
+        #0a0f0a,    // bg: very dark green-black
+        #e0f2e0,    // text: soft white with slight green tint
+        #33ff33,    // secondary text: bright matrix green
+        #33ff33,    // links: matrix green
+        #33ff33,    // visited: matrix green
+        #1a2a1a     // highlight: dark muted green
+    );
+}
+
+@mixin dark-appearance {
+    /* Matrix Dark Theme */
+    @include theme(
+        #000000,    // bg: black
+        #ffffff,    // text: white
+        #00ff00,    // secondary text: matrix green
+        #00ff00,    // links: matrix green (primary)
+        #00ff00,    // visited: matrix green
+        #003300     // highlight: dark matrix green
+    );
+}
+
+@mixin light-appearance {
+    /* Matrix Light Theme */
+    @include theme(
+        #f0f5f0,    // bg: very light green-tinted off-white
+        #1a2a1a,    // text: dark muted green (almost black)
+        #006600,    // secondary text: deeper matrix green
+        #008800,    // links: rich but not blinding green
+        #008800,    // visited: rich green
+        #dce8dc     // highlight: subtle pale green
+    );
+}
+
 body[a="dark"] {
     @include dark-appearance;
 }
