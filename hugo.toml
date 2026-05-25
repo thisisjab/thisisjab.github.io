@@ -16,8 +16,9 @@ cascade.params = { toc = false, tocBorder = false }
     lineNumbersInTable = false 
     noClasses          = true 
     hl_inline = false 
-    style = 'catppuccin-frappe'
+    # style = 'catppuccin-frappe'
     # style              = 'modus-vivendi'
+    style = 'xcode-dark'
 
   [markup.tableOfContents]
     startLevel = 1
