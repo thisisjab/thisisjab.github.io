@@ -18,9 +18,13 @@ But, there are some questions to this matter. What does it mean and should we ca
 
 Let's begin by defining what a transaction is though it may sound really obvious to you and you find this a pointless discussion, but I recommend to bear with me and stay around as we go deeper step by step. Transaction are considered as one the most fundamental features of many modern database. Transactions are used when you want to perform a series of operations like multiple updates, multiple deletions consisting of multiple reads and some logic, etc. in a atomic manner - that is either all of the operations in that transaction must completed successfully, or in case of any error or withdrawal all the operations must be rolled back as if nothing has happened. Now, let's consider how transactions are enforced?
 
-# All rows are tuples
+# No Dirty Reads
 
-In PostgreSQL, every row is considered a tuple. Imagine we have a table named `bank_accounts`. Let's define this table as simple as we can:
+By design, PostgreSQL never allow dirty reads to happen. *What is a dirty read?* Dirty read is the situation when a transaction reads data which is modified by another transaction, but it's not committed, yet. For example, image you start a transaction that deletes row with id = 1 from table `X`, but you do not commit your transaction. At this moment, if your friend starts another transaction (either explicitly or implicitly - doesn't matter), he/she would not be able to find out that you have deleted that row, since you have not committed your changes. So any change is hidden if not committed. 
+
+In some other database systems, dirty reads can happen and dirty reads can be omitted by using correct transaction isolation level (we are not going to discuss transaction isolation levels, since it is irrelevant). **Hence, PostgreSQL never allows dirty reads**, no matter what. So it's time to wonder how PostgreSQL prohibit dirty reads and what is different about PostgreSQL. 
+
+Let's start our discussion first by preparing an example. Imagine we have a table named `bank_accounts`. Let's define this table as simple as we can:
 
 ```sql
 CREATE TABLE bank_accounts (
@@ -36,11 +40,9 @@ And its content:
 | alice | 400 |
 | bob | 50 |
 
-This table consists of only two tuples: (alice, 400) and (bob, 50).
+**In PostgreSQL, every row is considered a tuple.** This table consists of only two tuples: (alice, 400) and (bob, 50).
 
-# Tuples are immutable
-
-In PostgreSQL you cannot edit a tuple. *Wait, what?* You cannot edit or replace tuples; you are only allowed to add or delete tuples. Actually, you yourself cannot perform deletion and insertion of tuples in reality. This operation is done by PostgreSQL internally.
+Besides, **tuples are immutable** in PostgreSQL. *Wait, what?* You cannot edit or replace tuples; you are only allowed to add or delete tuples. Obviously, in reality you yourself cannot and don't perform deletion and insertion of tuples. This operation is done by PostgreSQL internally.
 
 At this moment you may wonder:
 
