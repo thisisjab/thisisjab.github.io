@@ -68,6 +68,22 @@
 
     blockquote {
         border: thin solid $--primary-text-color;
+
+        p::before {
+            content: "“";
+            margin-right: 0.5rem;
+            color: $--link-color;
+            font-weight: 900;
+        }
+
+        p::after {
+            content: "”";
+            margin-left: 0.5rem;
+            color: $--link-color;
+            align-self: flex-end;
+            color: $--link-color;
+            font-weight: 900;
+        }
     }
 }
 
@@ -293,6 +309,7 @@ blockquote {
     p {
         margin: 0;
     }
+
 }
 
 img {
