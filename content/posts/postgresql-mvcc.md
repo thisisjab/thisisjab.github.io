@@ -2,6 +2,7 @@
 date = '2026-05-25T19:15:47+03:30'
 draft = false
 title = 'Everything is a transaction in PostgreSQL. So what?'
+tags = ["postgresql", "databases"]
 +++
 
 Every statement you run in PostgreSQL is inside a transaction, either explicitly or implicitly, and this may ring a bell. But let's focus on this matter and see what is going on, as this single architectural choice dictates why, for example, your COUNT(*) queries are slow, why your database disk space mysteriously balloons, and why dead rows might be haunting your storage.

@@ -12,7 +12,7 @@ If you're interested in learning more about me, feel free to head over to the [a
 
 Useful links: 
 
-- [My writings](/posts)
+- [My writings](/posts) ([Tags](/tags))
 - [My Github Page](https://github.com/thisisjab)
 - [My Linkedin Page](https://linkedin.com/in/thisisjab)
 - [Email](mailto:hyethisisjab@gmail.com)
