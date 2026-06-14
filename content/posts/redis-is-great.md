@@ -2,6 +2,7 @@
 date = '2026-06-05T17:26:43+03:30'
 draft = false 
 title = 'Redis Is More Than A In-Memory KV Database'
+tags = ["redis"]
 +++
 
 When it comes to Redis, everyone says: "Yeah, I use Redis for caching, and it's great." 
