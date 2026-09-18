@@ -182,7 +182,7 @@ taxonomies = { tag = "tags" }
     characters            = ["*", "+"]
 
     # Animation interval in seconds (0 = disabled/static; e.g. 2 = reposition every 2 seconds)
-    animation_seconds     = 0.5
+    animation_seconds     = 2 
 
     # Number of characters (n) to reposition on each interval tick
     animation_count       = 5

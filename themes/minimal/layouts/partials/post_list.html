@@ -39,21 +39,25 @@
         {{ $postUrl := $post.Params.external_url | default $post.Params.link | default $post.RelPermalink }}
         {{ $sourceName := $post.Params.source | default "ext" }}
         <li class="post-item">
-            <div class="post-entry">
+            <div class="post-header">
                 <time class="post-date" datetime="{{ $post.Date }}">{{- ($post.Date | time.Format (site.Params.theme_config.date_format | default "2006-01-02")) }}</time>
                 <a href="{{ $postUrl }}" class="post-title"{{ if $isExternal }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ $post.Title }}</a>
+            </div>
+            {{ if or $isExternal (and (or $.show_tags (ne $.show_tags false)) $post.Params.tags) }}
+            <div class="post-meta-row">
                 {{ if $isExternal }}
                 <span class="post-external-badge">[{{ $sourceName }} ↗]</span>
                 {{ end }}
-            </div>
-            {{ if or $.show_tags (ne $.show_tags false) }}
-            {{ with $post.Params.tags }}
-            <div class="post-tags">
-                {{ range . }}
-                <a href="{{ printf "/tags/%s/" (. | urlize) | relURL }}" class="post-tag">#{{ . }}</a>
+                {{ if or $.show_tags (ne $.show_tags false) }}
+                {{ with $post.Params.tags }}
+                <div class="post-tags">
+                    {{ range . }}
+                    <a href="{{ printf "/tags/%s/" (. | urlize) | relURL }}" class="post-tag">#{{ . }}</a>
+                    {{ end }}
+                </div>
+                {{ end }}
                 {{ end }}
             </div>
-            {{ end }}
             {{ end }}
         </li>
         {{ end }}
