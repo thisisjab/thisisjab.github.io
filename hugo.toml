@@ -172,13 +172,13 @@ taxonomies = { tag = "tags" }
   # 8. Ambient Background Characters (ASCII Margin Field)
   # ============================================================================
   [params.background_characters]
-    # Master toggle: disabled globally by default, can be enabled per-page
+    # Master toggle: disabled globally by default, can be enabled per-page/post
     enable                = false
 
     # Density of characters (count placed in outer gutters; 0 to disable)
     density               = 24
 
-    # Characters to pick from (default: ["*"])
+    # Characters to pick from (default: ["*"], e.g. ["*", "+", "·"])
     characters            = ["*"]
 
     # Animation speed in seconds (0 = disabled/static; e.g. 2 = move every 2 seconds)
@@ -186,4 +186,13 @@ taxonomies = { tag = "tags" }
 
     # Number of characters (n) to reposition on each interval tick
     animation_count       = 1
+
+    # Base character color (e.g. "#666666").
+    # If empty (""), automatically uses the active theme's non-primary muted color (dark or light, not primary)
+    color                 = ""
+
+    # Optional explicit dark or light mode color overrides:
+    color_dark            = ""
+    color_light           = ""
+
 

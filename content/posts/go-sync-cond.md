@@ -3,6 +3,7 @@ date = '2026-06-14T17:08:09+03:30'
 draft = false 
 title = 'sync.Cond: an Underrated Gem'
 tags = ["concurrency", "go"]
+background_characters = true
 +++
 
 Go's standard library ships with an impressive set of tools for building concurrent applications. Most Go developers reach for channels, `sync.Mutex`, or `sync.WaitGroup` — and that covers the vast majority of use cases. But there's one primitive that is underrated in my opinion: `sync.Cond`.

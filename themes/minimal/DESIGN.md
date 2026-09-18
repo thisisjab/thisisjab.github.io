@@ -754,10 +754,48 @@ All visual and functional parameters can be configured directly in your site's `
 ### 8. Ambient Background Characters (`[params.background_characters]`)
 | Parameter | Type | Default | Purpose |
 | :--- | :--- | :--- | :--- |
-| `enable` | bool | `false` | Master toggle (disabled globally, can be enabled per-page) |
-| `density` | int | `24` | Count of characters scattered in outer margins (`0` disables) |
-| `characters` | list[string] | `["*"]` | Character set randomly chosen from (e.g. `["*"]` or `["*", "+", "."]`) |
+| `enable` | bool | `false` | Master toggle (disabled globally, can be enabled per-page or per-post) |
+| `density` | int | `24` | Count of characters scattered in outer gutters (`0` disables) |
+| `characters` | list[string] | `["*"]` | Character set randomly chosen from (e.g. `["*"]`, `["*", "+", "·"]`) |
 | `animation_speed` | float / int | `0` | Interval in seconds between position updates (`0` disables animation) |
 | `animation_count` | int | `1` | Number of characters ($n$) repositioned on each interval tick |
+| `color` | string | `""` | Base character color. If empty, uses active theme's non-primary muted color |
+| `color_dark` | string | `""` | Optional override specifically for dark theme |
+| `color_light` | string | `""` | Optional override specifically for light theme |
+
+#### Enabling in Individual Posts
+Any blog post can enable ambient background characters in its markdown frontmatter:
+
+**Method 1: Minimal One-Liner**
+```toml
++++
+title = "sync.Cond: an Underrated Gem"
+date = 2026-06-14T17:08:09+03:30
+background_characters = true
++++
+```
+
+**Method 2: Custom Per-Post Configuration**
+```toml
++++
+title = "sync.Cond: an Underrated Gem"
+date = 2026-06-14T17:08:09+03:30
+
+[background_characters]
+enable          = true
+density         = 28
+characters      = ["*", "+", "·"]
+animation_speed = 2
+animation_count = 1
+color           = "#565f89"
++++
+```
+
+#### Performance Architecture & Omarchy Alignment
+- **GPU Compositing**: Characters are positioned with `transform: translate3d(x, y, 0)` and tagged with `will-change: transform, opacity;`, offloading rendering to the GPU compositor.
+- **Zero Layout Thrashing**: Gutter boundaries and scroll dimensions are measured once on load and updated only during debounced resize. **No `getBoundingClientRect()` calls occur inside animation interval ticks**.
+- **Containment**: Container is isolated with `contain: layout paint size;` so background updates never trigger layout reflows on `<main>` or the reading measure.
+- **Smart Idling**: Automatically pauses timers via `IntersectionObserver` when scrolled offscreen and via `document.hidden` when the browser tab is inactive. Respects `prefers-reduced-motion: reduce`.
+
 
 

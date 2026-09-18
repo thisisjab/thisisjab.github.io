@@ -412,31 +412,4 @@ hr {
     }
 }
 
-// ------------------------------------------------------------------------------
-// 10. Ambient Background Characters (ASCII Field)
-// ------------------------------------------------------------------------------
-.bg-characters {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    user-select: none;
-    overflow: hidden;
-    z-index: 1;
-
-    @media (max-width: 720px) {
-        display: none;
-    }
-
-    .bg-char {
-        position: absolute;
-        font-family: var(--font-code, monospace);
-        color: var(--muted-color);
-        line-height: 1;
-        transform: translate(-50%, -50%);
-        pointer-events: none;
-        user-select: none;
-        transition: opacity 0.4s ease;
-    }
-}
-
 

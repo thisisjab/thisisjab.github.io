@@ -1,46 +1,81 @@
+{{/* 1. Resolve Enablement (supports boolean or map in frontmatter and site config) */}}
 {{ $enabled := false }}
-{{ if isset .Params "bg_characters" }}
+{{ if isset .Params "background_characters" }}
+  {{ if reflect.IsMap .Params.background_characters }}
+    {{ if isset .Params.background_characters "enable" }}
+      {{ $enabled = .Params.background_characters.enable }}
+    {{ else }}
+      {{ $enabled = true }}
+    {{ end }}
+  {{ else }}
+    {{ $enabled = .Params.background_characters }}
+  {{ end }}
+{{ else if isset .Params "bg_characters" }}
   {{ $enabled = .Params.bg_characters }}
-{{ else if and (isset .Params "background_characters") (isset .Params.background_characters "enable") }}
-  {{ $enabled = .Params.background_characters.enable }}
 {{ else if and (isset site.Params "background_characters") (isset site.Params.background_characters "enable") }}
   {{ $enabled = site.Params.background_characters.enable }}
 {{ end }}
 
+{{/* 2. Resolve Density */}}
 {{ $density := 24 }}
-{{ if and (isset .Params "background_characters") (isset .Params.background_characters "density") }}
+{{ if and (isset .Params "background_characters") (reflect.IsMap .Params.background_characters) (isset .Params.background_characters "density") }}
   {{ $density = .Params.background_characters.density }}
 {{ else if and (isset site.Params "background_characters") (isset site.Params.background_characters "density") }}
   {{ $density = site.Params.background_characters.density }}
 {{ end }}
 
+{{/* 3. Resolve Character Set */}}
 {{ $chars := slice "*" }}
-{{ if and (isset .Params "background_characters") (isset .Params.background_characters "characters") }}
+{{ if and (isset .Params "background_characters") (reflect.IsMap .Params.background_characters) (isset .Params.background_characters "characters") }}
   {{ $chars = .Params.background_characters.characters }}
 {{ else if and (isset site.Params "background_characters") (isset site.Params.background_characters "characters") }}
   {{ $chars = site.Params.background_characters.characters }}
 {{ end }}
 
+{{/* 4. Resolve Animation Speed (seconds; 0 = disabled) */}}
 {{ $animSpeed := 0 }}
-{{ if and (isset .Params "background_characters") (isset .Params.background_characters "animation_speed") }}
-  {{ $animSpeed = .Params.background_characters.animation_speed }}
-{{ else if and (isset .Params "background_characters") (isset .Params.background_characters "animation") }}
-  {{ $animSpeed = .Params.background_characters.animation }}
-{{ else if and (isset site.Params "background_characters") (isset site.Params.background_characters "animation_speed") }}
-  {{ $animSpeed = site.Params.background_characters.animation_speed }}
-{{ else if and (isset site.Params "background_characters") (isset site.Params.background_characters "animation") }}
-  {{ $animSpeed = site.Params.background_characters.animation }}
+{{ if and (isset .Params "background_characters") (reflect.IsMap .Params.background_characters) }}
+  {{ if isset .Params.background_characters "animation_speed" }}
+    {{ $animSpeed = .Params.background_characters.animation_speed }}
+  {{ else if isset .Params.background_characters "animation" }}
+    {{ $animSpeed = .Params.background_characters.animation }}
+  {{ end }}
+{{ else if isset site.Params "background_characters" }}
+  {{ if isset site.Params.background_characters "animation_speed" }}
+    {{ $animSpeed = site.Params.background_characters.animation_speed }}
+  {{ else if isset site.Params.background_characters "animation" }}
+    {{ $animSpeed = site.Params.background_characters.animation }}
+  {{ end }}
 {{ end }}
 
+{{/* 5. Resolve Animation Character Count (n per tick; default: 1) */}}
 {{ $animCount := 1 }}
-{{ if and (isset .Params "background_characters") (isset .Params.background_characters "animation_count") }}
-  {{ $animCount = .Params.background_characters.animation_count }}
-{{ else if and (isset .Params "background_characters") (isset .Params.background_characters "animation_n") }}
-  {{ $animCount = .Params.background_characters.animation_n }}
-{{ else if and (isset site.Params "background_characters") (isset site.Params.background_characters "animation_count") }}
-  {{ $animCount = site.Params.background_characters.animation_count }}
-{{ else if and (isset site.Params "background_characters") (isset site.Params.background_characters "animation_n") }}
-  {{ $animCount = site.Params.background_characters.animation_n }}
+{{ if and (isset .Params "background_characters") (reflect.IsMap .Params.background_characters) }}
+  {{ if isset .Params.background_characters "animation_count" }}
+    {{ $animCount = .Params.background_characters.animation_count }}
+  {{ else if isset .Params.background_characters "animation_n" }}
+    {{ $animCount = .Params.background_characters.animation_n }}
+  {{ end }}
+{{ else if isset site.Params "background_characters" }}
+  {{ if isset site.Params.background_characters "animation_count" }}
+    {{ $animCount = site.Params.background_characters.animation_count }}
+  {{ else if isset site.Params.background_characters "animation_n" }}
+    {{ $animCount = site.Params.background_characters.animation_n }}
+  {{ end }}
+{{ end }}
+
+{{/* 6. Resolve Color Configuration */}}
+{{ $color := "" }}
+{{ $colorDark := "" }}
+{{ $colorLight := "" }}
+{{ if and (isset .Params "background_characters") (reflect.IsMap .Params.background_characters) }}
+  {{ $color = .Params.background_characters.color | default "" }}
+  {{ $colorDark = .Params.background_characters.color_dark | default "" }}
+  {{ $colorLight = .Params.background_characters.color_light | default "" }}
+{{ else if isset site.Params "background_characters" }}
+  {{ $color = site.Params.background_characters.color | default "" }}
+  {{ $colorDark = site.Params.background_characters.color_dark | default "" }}
+  {{ $colorLight = site.Params.background_characters.color_light | default "" }}
 {{ end }}
 
 {{ if and $enabled (gt $density 0) }}
@@ -49,15 +84,50 @@
      data-chars='{{ $chars | jsonify }}'
      data-speed="{{ $animSpeed }}"
      data-count="{{ $animCount }}"
+     style="{{ with $color }}--bg-char-custom-color: {{ . | safeCSS }};{{ end }}{{ with $colorDark }}--bg-char-color-dark: {{ . | safeCSS }};{{ end }}{{ with $colorLight }}--bg-char-color-light: {{ . | safeCSS }};{{ end }}"
      aria-hidden="true"></div>
 <script>
   (function() {
     let animTimer = null;
+    let observer = null;
+    let isVisible = true;
+
+    // Cached bounds to eliminate layout thrashing during animation loop
+    let leftGutterWidth = 0;
+    let rightGutterStart = 0;
+    let rightGutterWidth = 0;
+    let totalHeight = 0;
+
+    function measureBounds(main, content) {
+      const buffer = 20;
+      const mainRect = main.getBoundingClientRect();
+      const contentRect = content.getBoundingClientRect();
+      leftGutterWidth = contentRect.left - mainRect.left - buffer;
+      rightGutterStart = contentRect.right - mainRect.left + buffer;
+      rightGutterWidth = mainRect.right - contentRect.right - buffer;
+      totalHeight = main.scrollHeight;
+    }
+
+    function getRandomCoord(isLeftPreference) {
+      const isLeft = (isLeftPreference && leftGutterWidth >= 25) || rightGutterWidth < 25;
+      let x = 0;
+      if (isLeft) {
+        x = Math.max(10, Math.random() * leftGutterWidth);
+      } else {
+        x = rightGutterStart + Math.random() * (rightGutterWidth - 10);
+      }
+      const y = Math.random() * totalHeight;
+      return { x, y };
+    }
 
     function renderBgCharacters() {
       if (animTimer) {
         clearInterval(animTimer);
         animTimer = null;
+      }
+      if (observer) {
+        observer.disconnect();
+        observer = null;
       }
 
       const container = document.getElementById("bg-characters");
@@ -67,15 +137,9 @@
       if (!content) return;
 
       container.innerHTML = "";
-      const mainRect = main.getBoundingClientRect();
-      const contentRect = content.getBoundingClientRect();
+      measureBounds(main, content);
 
-      const buffer = 20; // safe buffer strictly outside content container
-      const leftGutterWidth = contentRect.left - mainRect.left - buffer;
-      const rightGutterStart = contentRect.right - mainRect.left + buffer;
-      const rightGutterWidth = mainRect.right - contentRect.right - buffer;
-
-      // Only render if gutters are wide enough
+      // Don't render if gutters are too narrow
       if (leftGutterWidth < 25 && rightGutterWidth < 25) return;
 
       const density = parseInt(container.getAttribute("data-density"), 10) || 24;
@@ -83,26 +147,17 @@
       try { chars = JSON.parse(container.getAttribute("data-chars")) || ["*"]; } catch(e) {}
       if (!Array.isArray(chars) || chars.length === 0) chars = ["*"];
 
-      const totalHeight = main.scrollHeight;
       const fragment = document.createDocumentFragment();
       const spans = [];
 
       for (let i = 0; i < density; i++) {
-        const isLeft = (i % 2 === 0 && leftGutterWidth >= 25) || rightGutterWidth < 25;
-        let x = 0;
-        if (isLeft) {
-          x = Math.max(10, Math.random() * leftGutterWidth);
-        } else {
-          x = rightGutterStart + Math.random() * (rightGutterWidth - 10);
-        }
-
-        const y = Math.random() * totalHeight;
+        const coord = getRandomCoord(i % 2 === 0);
         const char = chars[Math.floor(Math.random() * chars.length)];
         const span = document.createElement("span");
         span.className = "bg-char";
         span.textContent = char;
-        span.style.left = x + "px";
-        span.style.top = y + "px";
+        // GPU-composited translate3d
+        span.style.transform = "translate3d(" + coord.x.toFixed(1) + "px, " + coord.y.toFixed(1) + "px, 0)";
         span.style.opacity = (0.2 + Math.random() * 0.3).toFixed(2);
         span.style.fontSize = (0.75 + Math.random() * 0.4).toFixed(2) + "rem";
         fragment.appendChild(span);
@@ -110,14 +165,14 @@
       }
       container.appendChild(fragment);
 
-      // Animation: reposition n characters every `speed` seconds
       const speed = parseFloat(container.getAttribute("data-speed")) || 0;
       const count = parseInt(container.getAttribute("data-count"), 10) || 1;
       const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       if (speed > 0 && spans.length > 0 && !prefersReducedMotion) {
-        animTimer = setInterval(() => {
-          if (document.hidden) return;
+        function tick() {
+          if (!isVisible || document.hidden) return;
+          if (leftGutterWidth < 25 && rightGutterWidth < 25) return;
 
           const pool = spans.slice();
           const n = Math.min(count, pool.length);
@@ -128,31 +183,29 @@
           }
 
           chosen.forEach(span => {
+            // Fade out
             span.style.opacity = "0";
             setTimeout(() => {
-              const curMainRect = main.getBoundingClientRect();
-              const curContentRect = content.getBoundingClientRect();
-              const curLeftGutter = curContentRect.left - curMainRect.left - buffer;
-              const curRightStart = curContentRect.right - curMainRect.left + buffer;
-              const curRightWidth = curMainRect.right - curContentRect.right - buffer;
-
-              if (curLeftGutter < 25 && curRightWidth < 25) return;
-
-              const isLeft = (Math.random() < 0.5 && curLeftGutter >= 25) || curRightWidth < 25;
-              let newX = 0;
-              if (isLeft) {
-                newX = Math.max(10, Math.random() * curLeftGutter);
-              } else {
-                newX = curRightStart + Math.random() * (curRightWidth - 10);
-              }
-              const newY = Math.random() * main.scrollHeight;
-              span.style.left = newX + "px";
-              span.style.top = newY + "px";
+              // Pick new random coordinate from cached gutter bounds (zero reflow)
+              const coord = getRandomCoord(Math.random() < 0.5);
+              span.style.transform = "translate3d(" + coord.x.toFixed(1) + "px, " + coord.y.toFixed(1) + "px, 0)";
               span.textContent = chars[Math.floor(Math.random() * chars.length)];
-              span.style.opacity = (0.2 + Math.random() * 0.3).toFixed(2);
-            }, 400);
+              requestAnimationFrame(() => {
+                span.style.opacity = (0.2 + Math.random() * 0.3).toFixed(2);
+              });
+            }, 350);
           });
-        }, speed * 1000);
+        }
+
+        animTimer = setInterval(tick, speed * 1000);
+
+        // Pause animation when background character field is scrolled out of viewport
+        if ("IntersectionObserver" in window) {
+          observer = new IntersectionObserver(entries => {
+            isVisible = entries.some(entry => entry.isIntersecting);
+          }, { threshold: 0.05 });
+          observer.observe(container);
+        }
       }
     }
 

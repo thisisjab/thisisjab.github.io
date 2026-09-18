@@ -1,0 +1,48 @@
+// ==============================================================================
+// Ambient Background Characters (ASCII Field)
+// ==============================================================================
+// Renders subtle, non-intrusive terminal characters strictly outside the
+// central content container (.w) in the left and right outer gutters.
+// Designed to be 100% GPU-composited, layout-isolated, and CPU-friendly.
+// ==============================================================================
+
+.bg-characters {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    user-select: none;
+    overflow: hidden;
+    z-index: 1;
+    contain: layout paint size;
+
+    // Base color resolution: defaults to theme's muted/secondary text color (dark or light, not primary)
+    --bg-char-resolved-color: var(--bg-char-custom-color, var(--muted-color));
+
+    @media (max-width: 720px) {
+        display: none;
+    }
+
+    .bg-char {
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-family: var(--font-code, monospace);
+        color: var(--bg-char-resolved-color);
+        line-height: 1;
+        pointer-events: none;
+        user-select: none;
+        will-change: transform, opacity;
+        // Omarchy standard ease-out timing curve
+        transition: opacity 0.35s cubic-bezier(0, 0, 0.2, 1);
+    }
+}
+
+// Dark theme color override resolution
+body[a="dark"] .bg-characters {
+    --bg-char-resolved-color: var(--bg-char-color-dark, var(--bg-char-custom-color, var(--muted-color)));
+}
+
+// Light theme color override resolution
+body[a="light"] .bg-characters {
+    --bg-char-resolved-color: var(--bg-char-color-light, var(--bg-char-custom-color, var(--muted-color)));
+}
