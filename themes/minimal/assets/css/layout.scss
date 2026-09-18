@@ -20,6 +20,7 @@ body {
 
 main.page-content {
     flex: 1 0 auto;
+    position: relative;
 }
 
 // ------------------------------------------------------------------------------
@@ -29,6 +30,8 @@ main.page-content {
     max-width: var(--content-width, 640px);
     margin: 0 auto;
     padding: var(--content-padding, 4rem 2rem);
+    position: relative;
+    z-index: 2;
 }
 
 // ------------------------------------------------------------------------------
@@ -406,6 +409,33 @@ hr {
         &:hover {
             text-decoration: underline;
         }
+    }
+}
+
+// ------------------------------------------------------------------------------
+// 10. Ambient Background Characters (ASCII Field)
+// ------------------------------------------------------------------------------
+.bg-characters {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    user-select: none;
+    overflow: hidden;
+    z-index: 1;
+
+    @media (max-width: 720px) {
+        display: none;
+    }
+
+    .bg-char {
+        position: absolute;
+        font-family: var(--font-code, monospace);
+        color: var(--muted-color);
+        line-height: 1;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        user-select: none;
+        transition: opacity 0.4s ease;
     }
 }
 

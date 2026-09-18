@@ -167,3 +167,23 @@ taxonomies = { tag = "tags" }
 
     # Enable MathJax LaTeX mathematical equation rendering
     mathjax               = false
+
+  # ============================================================================
+  # 8. Ambient Background Characters (ASCII Margin Field)
+  # ============================================================================
+  [params.background_characters]
+    # Master toggle: disabled globally by default, can be enabled per-page
+    enable                = false
+
+    # Density of characters (count placed in outer gutters; 0 to disable)
+    density               = 24
+
+    # Characters to pick from (default: ["*"])
+    characters            = ["*"]
+
+    # Animation speed in seconds (0 = disabled/static; e.g. 2 = move every 2 seconds)
+    animation_speed       = 0
+
+    # Number of characters (n) to reposition on each interval tick
+    animation_count       = 1
+

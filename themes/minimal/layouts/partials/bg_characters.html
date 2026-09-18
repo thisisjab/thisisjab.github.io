@@ -1,0 +1,172 @@
+{{ $enabled := false }}
+{{ if isset .Params "bg_characters" }}
+  {{ $enabled = .Params.bg_characters }}
+{{ else if and (isset .Params "background_characters") (isset .Params.background_characters "enable") }}
+  {{ $enabled = .Params.background_characters.enable }}
+{{ else if and (isset site.Params "background_characters") (isset site.Params.background_characters "enable") }}
+  {{ $enabled = site.Params.background_characters.enable }}
+{{ end }}
+
+{{ $density := 24 }}
+{{ if and (isset .Params "background_characters") (isset .Params.background_characters "density") }}
+  {{ $density = .Params.background_characters.density }}
+{{ else if and (isset site.Params "background_characters") (isset site.Params.background_characters "density") }}
+  {{ $density = site.Params.background_characters.density }}
+{{ end }}
+
+{{ $chars := slice "*" }}
+{{ if and (isset .Params "background_characters") (isset .Params.background_characters "characters") }}
+  {{ $chars = .Params.background_characters.characters }}
+{{ else if and (isset site.Params "background_characters") (isset site.Params.background_characters "characters") }}
+  {{ $chars = site.Params.background_characters.characters }}
+{{ end }}
+
+{{ $animSpeed := 0 }}
+{{ if and (isset .Params "background_characters") (isset .Params.background_characters "animation_speed") }}
+  {{ $animSpeed = .Params.background_characters.animation_speed }}
+{{ else if and (isset .Params "background_characters") (isset .Params.background_characters "animation") }}
+  {{ $animSpeed = .Params.background_characters.animation }}
+{{ else if and (isset site.Params "background_characters") (isset site.Params.background_characters "animation_speed") }}
+  {{ $animSpeed = site.Params.background_characters.animation_speed }}
+{{ else if and (isset site.Params "background_characters") (isset site.Params.background_characters "animation") }}
+  {{ $animSpeed = site.Params.background_characters.animation }}
+{{ end }}
+
+{{ $animCount := 1 }}
+{{ if and (isset .Params "background_characters") (isset .Params.background_characters "animation_count") }}
+  {{ $animCount = .Params.background_characters.animation_count }}
+{{ else if and (isset .Params "background_characters") (isset .Params.background_characters "animation_n") }}
+  {{ $animCount = .Params.background_characters.animation_n }}
+{{ else if and (isset site.Params "background_characters") (isset site.Params.background_characters "animation_count") }}
+  {{ $animCount = site.Params.background_characters.animation_count }}
+{{ else if and (isset site.Params "background_characters") (isset site.Params.background_characters "animation_n") }}
+  {{ $animCount = site.Params.background_characters.animation_n }}
+{{ end }}
+
+{{ if and $enabled (gt $density 0) }}
+<div class="bg-characters" id="bg-characters"
+     data-density="{{ $density }}"
+     data-chars='{{ $chars | jsonify }}'
+     data-speed="{{ $animSpeed }}"
+     data-count="{{ $animCount }}"
+     aria-hidden="true"></div>
+<script>
+  (function() {
+    let animTimer = null;
+
+    function renderBgCharacters() {
+      if (animTimer) {
+        clearInterval(animTimer);
+        animTimer = null;
+      }
+
+      const container = document.getElementById("bg-characters");
+      if (!container) return;
+      const main = container.closest("main") || container.parentElement;
+      const content = main.querySelector(".w");
+      if (!content) return;
+
+      container.innerHTML = "";
+      const mainRect = main.getBoundingClientRect();
+      const contentRect = content.getBoundingClientRect();
+
+      const buffer = 20; // safe buffer strictly outside content container
+      const leftGutterWidth = contentRect.left - mainRect.left - buffer;
+      const rightGutterStart = contentRect.right - mainRect.left + buffer;
+      const rightGutterWidth = mainRect.right - contentRect.right - buffer;
+
+      // Only render if gutters are wide enough
+      if (leftGutterWidth < 25 && rightGutterWidth < 25) return;
+
+      const density = parseInt(container.getAttribute("data-density"), 10) || 24;
+      let chars = ["*"];
+      try { chars = JSON.parse(container.getAttribute("data-chars")) || ["*"]; } catch(e) {}
+      if (!Array.isArray(chars) || chars.length === 0) chars = ["*"];
+
+      const totalHeight = main.scrollHeight;
+      const fragment = document.createDocumentFragment();
+      const spans = [];
+
+      for (let i = 0; i < density; i++) {
+        const isLeft = (i % 2 === 0 && leftGutterWidth >= 25) || rightGutterWidth < 25;
+        let x = 0;
+        if (isLeft) {
+          x = Math.max(10, Math.random() * leftGutterWidth);
+        } else {
+          x = rightGutterStart + Math.random() * (rightGutterWidth - 10);
+        }
+
+        const y = Math.random() * totalHeight;
+        const char = chars[Math.floor(Math.random() * chars.length)];
+        const span = document.createElement("span");
+        span.className = "bg-char";
+        span.textContent = char;
+        span.style.left = x + "px";
+        span.style.top = y + "px";
+        span.style.opacity = (0.2 + Math.random() * 0.3).toFixed(2);
+        span.style.fontSize = (0.75 + Math.random() * 0.4).toFixed(2) + "rem";
+        fragment.appendChild(span);
+        spans.push(span);
+      }
+      container.appendChild(fragment);
+
+      // Animation: reposition n characters every `speed` seconds
+      const speed = parseFloat(container.getAttribute("data-speed")) || 0;
+      const count = parseInt(container.getAttribute("data-count"), 10) || 1;
+      const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (speed > 0 && spans.length > 0 && !prefersReducedMotion) {
+        animTimer = setInterval(() => {
+          if (document.hidden) return;
+
+          const pool = spans.slice();
+          const n = Math.min(count, pool.length);
+          const chosen = [];
+          for (let j = 0; j < n; j++) {
+            const idx = Math.floor(Math.random() * pool.length);
+            chosen.push(pool.splice(idx, 1)[0]);
+          }
+
+          chosen.forEach(span => {
+            span.style.opacity = "0";
+            setTimeout(() => {
+              const curMainRect = main.getBoundingClientRect();
+              const curContentRect = content.getBoundingClientRect();
+              const curLeftGutter = curContentRect.left - curMainRect.left - buffer;
+              const curRightStart = curContentRect.right - curMainRect.left + buffer;
+              const curRightWidth = curMainRect.right - curContentRect.right - buffer;
+
+              if (curLeftGutter < 25 && curRightWidth < 25) return;
+
+              const isLeft = (Math.random() < 0.5 && curLeftGutter >= 25) || curRightWidth < 25;
+              let newX = 0;
+              if (isLeft) {
+                newX = Math.max(10, Math.random() * curLeftGutter);
+              } else {
+                newX = curRightStart + Math.random() * (curRightWidth - 10);
+              }
+              const newY = Math.random() * main.scrollHeight;
+              span.style.left = newX + "px";
+              span.style.top = newY + "px";
+              span.textContent = chars[Math.floor(Math.random() * chars.length)];
+              span.style.opacity = (0.2 + Math.random() * 0.3).toFixed(2);
+            }, 400);
+          });
+        }, speed * 1000);
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", renderBgCharacters);
+    } else {
+      renderBgCharacters();
+    }
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(renderBgCharacters, 150);
+    });
+  })();
+</script>
+{{ end }}

@@ -751,3 +751,13 @@ All visual and functional parameters can be configured directly in your site's `
 | `lightbox` | bool | `true` | Enable clickable post image zoom overlay |
 | `mathjax` | bool | `false` | Enable LaTeX math rendering |
 
+### 8. Ambient Background Characters (`[params.background_characters]`)
+| Parameter | Type | Default | Purpose |
+| :--- | :--- | :--- | :--- |
+| `enable` | bool | `false` | Master toggle (disabled globally, can be enabled per-page) |
+| `density` | int | `24` | Count of characters scattered in outer margins (`0` disables) |
+| `characters` | list[string] | `["*"]` | Character set randomly chosen from (e.g. `["*"]` or `["*", "+", "."]`) |
+| `animation_speed` | float / int | `0` | Interval in seconds between position updates (`0` disables animation) |
+| `animation_count` | int | `1` | Number of characters ($n$) repositioned on each interval tick |
+
+
