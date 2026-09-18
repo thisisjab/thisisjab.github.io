@@ -19,8 +19,8 @@
     --secondary-text-color: #{$--secondary-text-color};
     --heading-color: #{$--secondary-text-color};
     --subheading-color: #{$--secondary-text-color};
-    --muted-color: rgba(#{$--primary-text-color}, 0.6);
-    --border-color: rgba(#{$--primary-text-color}, 0.12);
+    --muted-color: #{rgba($--primary-text-color, 0.6)};
+    --border-color: #{rgba($--primary-text-color, 0.12)};
     --link-color: #{$--link-color};
     --visited-link-color: #{$--visited-link-color};
     --highlight: #{$--highlight};
@@ -92,7 +92,7 @@
     }
 
     .toc {
-        border: thin solid $--primary-text-color;
+        border-color: var(--border-color, rgba($--primary-text-color, 0.12));
     }
 
     figcaption {

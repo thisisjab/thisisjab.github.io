@@ -21,10 +21,23 @@
 
     <h1>{{ .Title }}</h1>
 
-    {{ if .Params.toc }}
-        <aside {{ if .Params.tocBorder }}class="toc"{{ end }}>
-            {{ .TableOfContents }}
-        </aside>
+    {{ $globalToc := false }}
+    {{ if isset site.Params.theme_config "toc" }}
+        {{ $globalToc = site.Params.theme_config.toc }}
+    {{ else if isset site.Params "toc" }}
+        {{ $globalToc = site.Params.toc }}
+    {{ end }}
+
+    {{ $showToc := $globalToc }}
+    {{ if isset .Params "toc" }}
+        {{ $showToc = .Params.toc }}
+    {{ end }}
+
+    {{ if and $showToc (and .TableOfContents (findRE "<li" .TableOfContents)) }}
+    <details class="toc" open>
+        <summary class="toc-title">[table of contents]</summary>
+        {{ .TableOfContents }}
+    </details>
     {{ end }}
 
     {{ .Content }}

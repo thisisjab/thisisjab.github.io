@@ -1,0 +1,56 @@
+{{/*
+  Partial: Image Lightbox (layouts/partials/lightbox.html)
+  Purpose: Displays clicked images in a centered modal with dark blurry backdrop
+*/}}
+<div class="image-lightbox" id="image-lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="lightbox-backdrop"></div>
+  <div class="lightbox-content">
+    <img class="lightbox-image" src="" alt="" />
+    <button type="button" class="lightbox-close" aria-label="Close image overlay">[close]</button>
+  </div>
+</div>
+<script>
+  (function() {
+    function initLightbox() {
+      const lightbox = document.getElementById("image-lightbox");
+      if (!lightbox) return;
+      const lightboxImg = lightbox.querySelector(".lightbox-image");
+      const backdrop = lightbox.querySelector(".lightbox-backdrop");
+      const closeBtn = lightbox.querySelector(".lightbox-close");
+
+      function openLightbox(img) {
+        lightboxImg.src = img.currentSrc || img.src;
+        lightboxImg.alt = img.alt || "";
+        lightbox.classList.add("active");
+        lightbox.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove("active");
+        lightbox.setAttribute("aria-hidden", "true");
+        lightboxImg.src = "";
+        document.body.style.overflow = "";
+      }
+
+      document.querySelectorAll("article.post img, .page-content img:not(.home-avatar)").forEach(img => {
+        img.addEventListener("click", () => openLightbox(img));
+      });
+
+      backdrop.addEventListener("click", closeLightbox);
+      closeBtn.addEventListener("click", closeLightbox);
+      lightboxImg.addEventListener("click", closeLightbox);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && lightbox.classList.contains("active")) {
+          closeLightbox();
+        }
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initLightbox);
+    } else {
+      initLightbox();
+    }
+  })();
+</script>

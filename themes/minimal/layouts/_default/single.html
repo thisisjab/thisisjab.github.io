@@ -7,10 +7,11 @@
 <article class="page">
     <h1>{{ .Title }}</h1>
 
-    {{ if .Params.toc }}
-        <aside {{ if .Params.tocBorder }}class="toc"{{ end }}>
-            {{ .TableOfContents }}
-        </aside>
+    {{ if and .Params.toc (and .TableOfContents (findRE "<li" .TableOfContents)) }}
+    <details class="toc" open>
+        <summary class="toc-title">[table of contents]</summary>
+        {{ .TableOfContents }}
+    </details>
     {{ end }}
 
     {{ .Content }}

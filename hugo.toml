@@ -5,7 +5,6 @@ theme = 'minimal'
 
 taxonomies = { tag = "tags" }
 
-cascade.params = { toc = false, tocBorder = false }
 
 [markup]
   [markup.highlight]
@@ -34,6 +33,9 @@ cascade.params = { toc = false, tocBorder = false }
     isShowFooter      = true
     footer_now        = "Exploring distributed systems and AI"
     links_title       = "Links"
+    # Table of Contents: true to enable globally for blog posts, false to disable.
+    # Can be overridden per post with 'toc = true' or 'toc = false' in post frontmatter.
+    toc               = true
     # Optional status badge (leave empty or commented to disable):
     # status          = "open to work"
     # Optional default location:

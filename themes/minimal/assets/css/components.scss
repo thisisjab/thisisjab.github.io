@@ -51,6 +51,16 @@ img {
     margin: 0 auto;
 }
 
+article.post img,
+.page-content img:not(.home-avatar) {
+    cursor: zoom-in;
+    transition: opacity 0.15s ease-out;
+
+    &:hover {
+        opacity: 0.92;
+    }
+}
+
 // ------------------------------------------------------------------------------
 // 5. Expandable Details & Summaries
 // ------------------------------------------------------------------------------
@@ -83,10 +93,73 @@ td {
 }
 
 // ------------------------------------------------------------------------------
-// 7. Table of Contents
+// 7. Table of Contents (Omarchy Architectural Style)
 // ------------------------------------------------------------------------------
-.toc {
-    padding: 1rem;
+details.toc {
+    margin: 1.5rem 0 2rem 0;
+    padding: 0.85rem 1.15rem;
+    border: 1px solid var(--border-color, rgba(128, 128, 128, 0.15));
+    border-radius: 0;
+    background-color: rgba(128, 128, 128, 0.03);
+
+    summary.toc-title {
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.85rem;
+        letter-spacing: 0.025em;
+        color: var(--subheading-color, var(--primary-text-color));
+        user-select: none;
+        outline: none;
+        list-style: none;
+
+        &::-webkit-details-marker {
+            display: none;
+        }
+
+        &:hover {
+            color: var(--link-color);
+        }
+    }
+
+    &[open] summary.toc-title {
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border-color, rgba(128, 128, 128, 0.12));
+    }
+
+    nav#TableOfContents {
+        font-size: 0.85rem;
+        line-height: 1.6;
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+
+            ul {
+                padding-left: 1.25rem;
+            }
+        }
+
+        li {
+            margin: 0.35rem 0;
+
+            &::before {
+                content: "– ";
+                color: var(--muted-color);
+            }
+        }
+
+        a {
+            color: var(--primary-text-color);
+            text-decoration: none;
+
+            &:hover {
+                color: var(--link-color);
+                text-decoration: underline;
+            }
+        }
+    }
 }
 
 // ------------------------------------------------------------------------------
@@ -95,11 +168,15 @@ td {
 .theme-toggle {
     background: transparent;
     border: none;
-    font-size: 1rem;
+    font-family: inherit;
+    font-size: 0.875rem;
+    line-height: inherit;
+    padding: 0;
     cursor: pointer;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    color: inherit;
 
     .sun,
     .moon {
@@ -113,4 +190,72 @@ body[a="dark"] .theme-toggle .sun {
 
 body[a="light"] .theme-toggle .moon {
     display: none;
+}
+
+// ------------------------------------------------------------------------------
+// 9. Image Lightbox Overlay (Omarchy Style)
+// ------------------------------------------------------------------------------
+.image-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    box-sizing: border-box;
+
+    &.active {
+        display: flex;
+    }
+
+    .lightbox-backdrop {
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        cursor: zoom-out;
+    }
+
+    .lightbox-content {
+        position: relative;
+        z-index: 1;
+        max-width: 90vw;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .lightbox-image {
+        max-width: 90vw;
+        max-height: 82vh;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        border-radius: 0;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        cursor: zoom-out;
+    }
+
+    .lightbox-close {
+        margin-top: 0.85rem;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #ffffff;
+        font-family: inherit;
+        font-size: 0.85rem;
+        padding: 0.35rem 0.95rem;
+        cursor: pointer;
+        border-radius: 0;
+        transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+
+        &:hover {
+            border-color: #00ff00;
+            color: #00ff00;
+            background: rgba(255, 255, 255, 0.16);
+        }
+    }
 }

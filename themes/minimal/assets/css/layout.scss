@@ -132,11 +132,6 @@ hr {
     object-fit: cover;
     display: block;
     margin: 0;
-    transition: transform 0.15s ease-out;
-
-    &:hover {
-        transform: scale(1.02);
-    }
 }
 
 .home-identity {
