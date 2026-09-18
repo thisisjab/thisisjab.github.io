@@ -15,7 +15,15 @@
       </div>
     </main>
     {{- partial "footer.html" . -}}
+    {{ $enableLightbox := true }}
+    {{ if isset site.Params "features" }}
+      {{ if isset site.Params.features "lightbox" }}
+        {{ $enableLightbox = site.Params.features.lightbox }}
+      {{ end }}
+    {{ end }}
+    {{- if $enableLightbox -}}
     {{- partial "lightbox.html" . -}}
+    {{- end -}}
     {{- if .Params.custom_js -}}
       {{- range .Params.custom_js -}}
         {{- $js := resources.Get (printf "js/%s.js" .) -}}

@@ -1,21 +1,20 @@
-baseURL = 'https://thisisjab.github.io/'
-locale = 'en-us'
-title = 'Jab'
-theme = 'minimal'
+baseURL      = 'https://thisisjab.github.io/'
+locale       = 'en-us'
+title        = 'Jab'
+theme        = 'minimal'
 
 taxonomies = { tag = "tags" }
-
 
 [markup]
   [markup.highlight]
     codeFences         = true
-    anchorLineNos = true
+    anchorLineNos      = true
     guessSyntax        = false
-    lineNos            = true 
-    lineNumbersInTable = false 
-    noClasses          = false 
-    hl_inline = false 
-    style = 'catppuccin-mocha'
+    lineNos            = true
+    lineNumbersInTable = false
+    noClasses          = false
+    hl_inline          = false
+    style              = 'catppuccin-mocha'
 
   [markup.tableOfContents]
     startLevel = 1
@@ -25,21 +24,130 @@ taxonomies = { tag = "tags" }
 [params]
   style = "css/main.scss"
 
+  # ============================================================================
+  # 1. Theme & Appearance Settings
+  # ============================================================================
   [params.theme_config]
-    appearance        = "auto"
-    back_home_text    = "<<<"
-    date_format       = "2006-01-02"
-    isListGroupByDate = false
-    isShowFooter      = true
-    footer_now        = "Exploring distributed systems and AI"
-    links_title       = "Links"
+    # Mode: "auto" (follows system preference), "dark", or "light"
+    appearance            = "auto"
+
+    # ASCII back link on post headers: e.g. "<<<" or "<<< home"
+    back_home_text        = "<<<"
+
+    # Date format across articles, list entries, and post metadata
+    date_format           = "2006-01-02"
+
+    # Group posts by publication year on the /posts/ archive page
+    is_list_group_by_date = false
+
     # Table of Contents: true to enable globally for blog posts, false to disable.
     # Can be overridden per post with 'toc = true' or 'toc = false' in post frontmatter.
-    toc               = true
-    # Optional status badge (leave empty or commented to disable):
-    # status          = "open to work"
-    # Optional default location:
-    # location        = "Iran"
-    # Optional color overrides:
-    # subheading_color = "#d4d4d4"
-    # heading_color    = "#ffffff"
+    toc                   = true
+
+    # Display the [now] status footer bar across all pages
+    show_footer           = true
+
+    # Text prefix for the status footer bar
+    now_prefix            = "[now]"
+
+    # Current status statement displayed in the footer
+    footer_now            = "Exploring distributed systems and AI"
+
+    # Section title for homepage links list
+    links_title           = "Links"
+
+    # Optional status badge (uncomment to display on homepage):
+    # status              = "open to work"
+
+    # Optional location badge (uncomment to display on homepage):
+    # location            = "Iran"
+
+  # ============================================================================
+  # 2. Typography & Fonts Configuration
+  # ============================================================================
+  [params.typography]
+    # Primary serif font stack for headings (h1 - h6)
+    # font_heading        = '"IBM Plex Serif", Georgia, Cambria, "Times New Roman", Times, serif'
+
+    # Primary monospace font stack for body prose
+    # font_body           = '"CaskaydiaCove Nerd Font", "Caskaydia", "Cascadia Code", monospace'
+
+    # Font stack for code blocks and inline code elements
+    # font_code           = '"CaskaydiaCove Nerd Font", "Caskaydia", "Cascadia Code", monospace'
+
+    # Base font size for body prose (default: "1rem" / 16px)
+    font_size_base        = "1rem"
+
+    # Monospace font size for code blocks and inline code (default: "0.875rem" / 14px)
+    font_size_code        = "0.875rem"
+
+    # Line height for body copy (optimal monospace reading: 1.5 - 1.625)
+    line_height_base      = "1.625"
+
+    # Line height for headings (default: 1.25)
+    line_height_heading   = "1.25"
+
+  # ============================================================================
+  # 3. Colors & Accent Customization
+  # ============================================================================
+  # Override preset theme colors. Uncomment any variable to apply custom styling:
+  [params.colors]
+    # Primary brand accent & link color (e.g. "#00ff00")
+    # accent_color        = "#00ff00"
+
+    # Main heading color (h1)
+    # heading_color       = "#ffffff"
+
+    # Subheadings (h2, h3, h4) and secondary text color
+    # subheading_color    = "#00ff00"
+
+    # Primary body text color
+    # primary_text_color  = "#ffffff"
+
+    # Page background color
+    # bg_color            = "#000000"
+
+    # Code block background color
+    # code_bg             = "#0d0f10"
+
+    # Outline & structural border color
+    # border_color        = "rgba(255, 255, 255, 0.12)"
+
+  # ============================================================================
+  # 4. Layout & Measure Tokens
+  # ============================================================================
+  [params.layout]
+    # Max width / reading measure of the central content column (default: "640px", Omarchy: "48rem")
+    content_width         = "640px"
+
+    # Vertical and horizontal padding of the main content column
+    content_padding       = "4rem 2rem"
+
+    # Inner vertical and horizontal padding of the top sticky bar
+    header_padding        = "0.85rem 2rem"
+
+  # ============================================================================
+  # 5. Header Navigation & Controls
+  # ============================================================================
+  [params.navigation]
+    # Display the [blog] link in the header top bar
+    show_blog             = true
+
+    # Display the [rss] feed link in the header top bar
+    show_rss              = true
+
+    # Display the [theme] dark/light toggle switcher in the header top bar
+    show_theme_toggle     = true
+
+    # Display #tags on post listing entries
+    show_tags             = true
+
+  # ============================================================================
+  # 6. Feature Flags
+  # ============================================================================
+  [params.features]
+    # Enable clickable post images with dark blurry lightbox overlay
+    lightbox              = true
+
+    # Enable MathJax LaTeX mathematical equation rendering
+    mathjax               = false

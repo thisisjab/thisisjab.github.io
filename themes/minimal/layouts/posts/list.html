@@ -13,7 +13,15 @@
 
   {{ .Content }}
 
-  {{ if site.Params.theme_config.isListGroupByDate }}
+  {{ $isGroupByDate := or site.Params.theme_config.is_list_group_by_date site.Params.theme_config.isListGroupByDate }}
+  {{ $showTags := true }}
+  {{ if isset site.Params "navigation" }}
+    {{ if isset site.Params.navigation "show_tags" }}
+      {{ $showTags = site.Params.navigation.show_tags }}
+    {{ end }}
+  {{ end }}
+
+  {{ if $isGroupByDate }}
       {{ range .Pages.GroupByDate "2006 Year" }}
       <p class="posts-year">{{ .Key }}</p>
       <ul class="posts-list">
@@ -23,9 +31,9 @@
                   <time class="post-date" datetime="{{ .Date }}">{{ .Date | time.Format (site.Params.theme_config.date_format | default "2006-01-02") }}</time>
                   <a href="{{ .RelPermalink }}" class="post-title">{{ .Title }}</a>
               </div>
-              {{ with .Params.tags }}
+              {{ if and $showTags .Params.tags }}
               <div class="post-tags">
-                  {{ range . }}
+                  {{ range .Params.tags }}
                   <a href="{{ printf "/tags/%s/" (. | urlize) | relURL }}" class="post-tag">#{{ . }}</a>
                   {{ end }}
               </div>
@@ -35,7 +43,7 @@
       </ul>
       {{ end }}
   {{ else }}
-      {{ partial "post_list.html" (dict "context" . "section" .Section "show_tags" true) }}
+      {{ partial "post_list.html" (dict "context" . "section" .Section "show_tags" $showTags) }}
   {{ end }}
 </div>
 {{ end }}

@@ -7,9 +7,35 @@
   <div class="header-inner">
     <a href="{{ "" | relURL }}" class="site-brand">{{ site.Title }}</a>
     <nav class="header-nav">
+      {{ $showBlog := true }}
+      {{ if isset site.Params "navigation" }}
+        {{ if isset site.Params.navigation "show_blog" }}
+          {{ $showBlog = site.Params.navigation.show_blog }}
+        {{ end }}
+      {{ end }}
+      {{ if $showBlog }}
       <a href="{{ "posts/" | relURL }}" class="nav-item">[blog]</a>
+      {{ end }}
+
+      {{ $showRss := true }}
+      {{ if isset site.Params "navigation" }}
+        {{ if isset site.Params.navigation "show_rss" }}
+          {{ $showRss = site.Params.navigation.show_rss }}
+        {{ end }}
+      {{ end }}
+      {{ if $showRss }}
       <a href="{{ "index.xml" | relURL }}" class="nav-item">[rss]</a>
+      {{ end }}
+
+      {{ $showToggle := true }}
+      {{ if isset site.Params "navigation" }}
+        {{ if isset site.Params.navigation "show_theme_toggle" }}
+          {{ $showToggle = site.Params.navigation.show_theme_toggle }}
+        {{ end }}
+      {{ end }}
+      {{ if $showToggle }}
       <button type="button" class="nav-item theme-toggle" aria-label="Toggle theme">[theme]</button>
+      {{ end }}
     </nav>
   </div>
 </header>

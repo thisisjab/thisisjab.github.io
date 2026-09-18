@@ -14,6 +14,7 @@ This document formalizes the visual language, design tokens, typography, compone
 - **Theme-Centric**: Every color on the canvas—backgrounds, surfaces, borders, text hierarchies, selection states, and brand highlights—is parameterized into semantic tokens that smoothly shift between light and dark palettes.
 - **Content-First Simplicity**: Generous spacing, readable line lengths (`--measure: 48rem`), and high text contrast.
 - **Text Over Icons**: Favor explicit, readable text and ASCII indicators (e.g., `<<<`, `[rss]`, `[theme]`, `#tags`) over ambiguous iconography. Text avoids visual clutter, eliminates icon-font overhead, aligns cleanly with monospace layout grids, and maintains terminal-grade clarity.
+- **Deep Configurability via `hugo.toml`**: The theme is designed to be configurable as much as possible directly through `hugo.toml` without touching theme stylesheets or templates. All key design tokens—typography, font families, base font size, line heights, accent colors, reading measure, header navigation, Table of Contents, and features—map to clean, logically grouped configuration parameters.
 
 ---
 
@@ -667,3 +668,66 @@ To switch `themes/minimal` to any Omarchy palette, open [`themes/minimal/assets/
     );
 }
 ```
+
+---
+
+## 8. Complete `hugo.toml` Configuration Reference
+
+All visual and functional parameters can be configured directly in your site's `hugo.toml`. Below is the complete reference table:
+
+### 1. Core Theme Settings (`[params.theme_config]`)
+| Parameter | Type | Default | Purpose |
+| :--- | :--- | :--- | :--- |
+| `appearance` | string | `"auto"` | Mode: `"auto"` (OS preference), `"dark"`, or `"light"` |
+| `back_home_text` | string | `"<<<"` | ASCII back link text on post pages |
+| `date_format` | string | `"2006-01-02"` | Date display format across articles and archive |
+| `is_list_group_by_date` | bool | `false` | Group posts by year on `/posts/` archive page |
+| `toc` | bool | `true` | Globally enable/disable Table of Contents for posts |
+| `show_footer` | bool | `true` | Display the status footer across all pages |
+| `now_prefix` | string | `"[now]"` | Prefix text before the status statement |
+| `footer_now` | string | `"Exploring distributed systems and AI"` | Current status statement displayed in footer |
+| `links_title` | string | `"Links"` | Section title for homepage link list |
+
+### 2. Typography (`[params.typography]`)
+| Parameter | Type | Default | Target CSS Variable |
+| :--- | :--- | :--- | :--- |
+| `font_heading` | string | `"IBM Plex Serif", Georgia, serif` | `--font-heading` |
+| `font_body` | string | `"CaskaydiaCove Nerd Font", monospace` | `--font-body` |
+| `font_code` | string | `"CaskaydiaCove Nerd Font", monospace` | `--font-code` |
+| `font_size_base` | string | `"1rem"` (16px) | `--font-size-base` |
+| `font_size_code` | string | `"0.875rem"` (14px) | `--font-size-code` |
+| `line_height_base` | string | `"1.625"` | `--line-height-base` |
+| `line_height_heading` | string | `"1.25"` | `--line-height-heading` |
+
+### 3. Colors & Accents (`[params.colors]`)
+| Parameter | Type | Default | Target CSS Variable |
+| :--- | :--- | :--- | :--- |
+| `accent_color` | string | Palette brand / link color | `--link-color`, `--visited-link-color` |
+| `heading_color` | string | Palette secondary / heading | `--heading-color` |
+| `subheading_color` | string | Palette subheading | `--subheading-color` |
+| `primary_text_color` | string | Palette primary text | `--primary-text-color` |
+| `bg_color` | string | Palette background | `--bg-color` |
+| `code_bg` | string | Palette code background | `--code-bg` |
+| `border_color` | string | Palette outline border | `--border-color` |
+
+### 4. Layout & Measure (`[params.layout]`)
+| Parameter | Type | Default | Target CSS Variable |
+| :--- | :--- | :--- | :--- |
+| `content_width` | string | `"640px"` | `--content-width` |
+| `content_padding` | string | `"4rem 2rem"` | `--content-padding` |
+| `header_padding` | string | `"0.85rem 2rem"` | `--header-padding` |
+
+### 5. Header Navigation (`[params.navigation]`)
+| Parameter | Type | Default | Purpose |
+| :--- | :--- | :--- | :--- |
+| `show_blog` | bool | `true` | Display `[blog]` link in header |
+| `show_rss` | bool | `true` | Display `[rss]` link in header |
+| `show_theme_toggle` | bool | `true` | Display `[theme]` toggle button in header |
+| `show_tags` | bool | `true` | Display `#tags` on post listing cards |
+
+### 6. Feature Flags (`[params.features]`)
+| Parameter | Type | Default | Purpose |
+| :--- | :--- | :--- | :--- |
+| `lightbox` | bool | `true` | Enable clickable post image zoom overlay |
+| `mathjax` | bool | `false` | Enable LaTeX math rendering |
+

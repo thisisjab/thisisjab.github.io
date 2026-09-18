@@ -48,9 +48,9 @@ $weight-bold:     700;
 // 3. Document Body Typography
 // ------------------------------------------------------------------------------
 body {
-    font-family: $font-body;
-    font-size: $text-base;
-    line-height: $leading-relaxed;
+    font-family: var(--font-body, #{$font-body});
+    font-size: var(--font-size-base, #{$text-base});
+    line-height: var(--line-height-base, #{$leading-relaxed});
     font-weight: $weight-normal;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -60,7 +60,7 @@ body {
 // 4. Headings Scale & Hierarchy
 // ------------------------------------------------------------------------------
 h1, h2, h3, h4, h5, h6 {
-    font-family: $font-heading;
+    font-family: var(--font-heading, #{$font-heading});
     letter-spacing: $tracking-tight;
     text-wrap: balance;
     margin-bottom: 0.5em;
@@ -68,7 +68,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     font-size: $text-4xl;
-    line-height: $leading-tight;
+    line-height: var(--line-height-heading, #{$leading-tight});
     font-weight: $weight-bold;
     margin-top: 1.5rem;
     color: var(--heading-color, inherit);
@@ -136,8 +136,8 @@ figcaption {
 // 6. Monospace & Code Elements
 // ------------------------------------------------------------------------------
 code, pre, kbd, samp {
-    font-family: $font-code;
-    font-size: $text-sm;
+    font-family: var(--font-code, #{$font-code});
+    font-size: var(--font-size-code, #{$text-sm});
 }
 
 code {

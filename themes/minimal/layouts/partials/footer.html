@@ -3,10 +3,19 @@
   Purpose: Full-width bottom bar displaying site [now] status
   Format:  [now] Exploring distributed systems and AI
 */}}
-{{- if ne site.Params.theme_config.isShowFooter false -}}
+{{ $showFooter := true }}
+{{ if isset site.Params "theme_config" }}
+  {{ if isset site.Params.theme_config "show_footer" }}
+    {{ $showFooter = site.Params.theme_config.show_footer }}
+  {{ else if isset site.Params.theme_config "isShowFooter" }}
+    {{ $showFooter = site.Params.theme_config.isShowFooter }}
+  {{ end }}
+{{ end }}
+
+{{- if $showFooter -}}
 <footer class="site-footer">
   <div class="footer-inner">
-    <span class="now-prefix">[now]</span>
+    <span class="now-prefix">{{ site.Params.theme_config.now_prefix | default "[now]" }}</span>
     <span class="now-text">{{ site.Params.theme_config.footer_now | default "Exploring distributed systems and AI" }}</span>
   </div>
 </footer>

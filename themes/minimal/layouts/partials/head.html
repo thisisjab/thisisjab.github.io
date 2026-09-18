@@ -31,13 +31,36 @@
         href="{{ $style.Permalink | relURL }}"
         integrity="{{ $style.Data.Integrity }}"
     />
-    {{- with site.Params.theme_config.subheading_color -}}
-    <style>:root, body { --subheading-color: {{ . }} !important; }</style>
-    {{- end -}}
-    {{- with site.Params.theme_config.heading_color -}}
-    <style>:root, body { --heading-color: {{ . }} !important; }</style>
-    {{- end -}}
-    {{ if .Params.mathjax }} {{ partial "mathjax.html" . }} {{ end }}
+    <style>
+      :root {
+        {{- /* Typography */ -}}
+        {{- with site.Params.typography.font_heading }}--font-heading: {{ . | safeCSS }};{{ end -}}
+        {{- with site.Params.typography.font_body }}--font-body: {{ . | safeCSS }};{{ end -}}
+        {{- with site.Params.typography.font_code }}--font-code: {{ . | safeCSS }};{{ end -}}
+        {{- with site.Params.typography.font_size_base }}--font-size-base: {{ . | safeCSS }};{{ end -}}
+        {{- with site.Params.typography.font_size_code }}--font-size-code: {{ . | safeCSS }};{{ end -}}
+        {{- with site.Params.typography.line_height_base }}--line-height-base: {{ . | safeCSS }};{{ end -}}
+        {{- with site.Params.typography.line_height_heading }}--line-height-heading: {{ . | safeCSS }};{{ end -}}
+
+        {{- /* Layout & Measure */ -}}
+        {{- with site.Params.layout.content_width }}--content-width: {{ . | safeCSS }};{{ end -}}
+        {{- with site.Params.layout.content_padding }}--content-padding: {{ . | safeCSS }};{{ end -}}
+        {{- with site.Params.layout.header_padding }}--header-padding: {{ . | safeCSS }};{{ end -}}
+
+        {{- /* Colors & Accents */ -}}
+        {{- $accentColor := site.Params.colors.accent_color | default site.Params.theme_config.accent_color -}}
+        {{- with $accentColor }}--link-color: {{ . | safeCSS }} !important; --visited-link-color: {{ . | safeCSS }} !important;{{ end -}}
+        {{- $headingColor := site.Params.colors.heading_color | default site.Params.theme_config.heading_color -}}
+        {{- with $headingColor }}--heading-color: {{ . | safeCSS }} !important;{{ end -}}
+        {{- $subheadingColor := site.Params.colors.subheading_color | default site.Params.theme_config.subheading_color -}}
+        {{- with $subheadingColor }}--subheading-color: {{ . | safeCSS }} !important;{{ end -}}
+        {{- with site.Params.colors.primary_text_color }}--primary-text-color: {{ . | safeCSS }} !important;{{ end -}}
+        {{- with site.Params.colors.bg_color }}--bg-color: {{ . | safeCSS }} !important;{{ end -}}
+        {{- with site.Params.colors.code_bg }}--code-bg: {{ . | safeCSS }} !important;{{ end -}}
+        {{- with site.Params.colors.border_color }}--border-color: {{ . | safeCSS }} !important;{{ end -}}
+      }
+    </style>
+    {{ if or .Params.mathjax site.Params.features.mathjax }} {{ partial "mathjax.html" . }} {{ end }}
     <script>
         function initThemeToggle() {
             const button = document.querySelector(".theme-toggle");

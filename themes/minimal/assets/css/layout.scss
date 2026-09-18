@@ -26,9 +26,9 @@ main.page-content {
 // 2. Main Content Container
 // ------------------------------------------------------------------------------
 .page-content > .w {
-    max-width: 640px;
+    max-width: var(--content-width, 640px);
     margin: 0 auto;
-    padding: 4rem 2rem;
+    padding: var(--content-padding, 4rem 2rem);
 }
 
 // ------------------------------------------------------------------------------
@@ -70,9 +70,9 @@ hr {
     border-bottom: 1px solid var(--border-color, rgba(128, 128, 128, 0.15));
 
     .header-inner {
-        max-width: 640px;
+        max-width: var(--content-width, 640px);
         margin: 0 auto;
-        padding: 0.85rem 2rem;
+        padding: var(--header-padding, 0.85rem 2rem);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -223,7 +223,7 @@ hr {
     margin-top: auto;
 
     .footer-inner {
-        max-width: 640px;
+        max-width: var(--content-width, 640px);
         margin: 0 auto;
         padding: 1.1rem 2rem;
         display: flex;
