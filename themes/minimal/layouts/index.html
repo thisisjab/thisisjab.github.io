@@ -1,20 +1,60 @@
 {{/*
   Template: Homepage Layout (layouts/index.html)
-  Purpose:  Renders the site homepage (/)
-  Features: Description (optional), home content, and menu/posts navigation
+  Purpose:  Renders the refined, minimal homepage
+  Features: Profile avatar hero, bio prose, configurable links list, and [now] status
 */}}
 {{ define "main" }}
-{{- if site.Params.theme_config.show_description -}}
-<header class="home-header">
-    <p>{{ site.Params.description }}</p>
-</header>
-{{- end -}}
+<div class="home-container">
 
-{{ .Content }}
+  <!-- 1. Profile Hero Section -->
+  <header class="home-hero">
+    {{ with .Params.avatar | default "/images/me.webp" }}
+    <div class="home-avatar-wrap">
+      <img src="{{ . | relURL }}" alt="{{ $.Params.name | default site.Title }}" class="home-avatar" />
+    </div>
+    {{ end }}
+    <div class="home-identity">
+      <h1 class="home-name">{{ .Params.name | default site.Title }}</h1>
+      {{ with .Params.headline }}
+      <p class="home-headline">{{ . }}</p>
+      {{ end }}
+      {{ $location := .Params.location | default site.Params.theme_config.location }}
+      {{ $status := .Params.status }}
+      {{ if eq $status nil }}
+        {{ $status = site.Params.theme_config.status }}
+      {{ end }}
+      {{ if or $location $status }}
+      <div class="home-badges">
+        {{ with $location }}<span class="badge">[{{ . }}]</span>{{ end }}
+        {{ if and $status (ne $status "") (ne $status false) }}
+        <span class="badge status-badge"><span class="status-dot">●</span> {{ $status }}</span>
+        {{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </header>
 
-{{- if site.Data.menu.entries -}}
-    {{ partial "menu.html" (dict "context" . "collection" site.Data.menu.entries) }}
-{{- else -}}
-    {{ partial "post_list.html" (dict "context" . "section" "posts") }}
-{{- end -}}
+  <!-- 2. Bio & Introductory Statement -->
+  <section class="home-bio">
+    {{ .Content }}
+  </section>
+
+  <hr />
+
+  <!-- 3. Links Section (Configurable, non-grid) -->
+  <section class="home-links-section">
+    <h2 class="section-title">{{ .Params.links_title | default site.Params.theme_config.links_title | default "Links" }}</h2>
+    <ul class="home-links">
+      {{- range $link := .Params.links | default (slice
+          (dict "name" "[github]" "url" "https://github.com/thisisjab")
+          (dict "name" "[linkedin]" "url" "https://linkedin.com/in/thisisjab")
+      ) -}}
+      <li>
+        <a href="{{ $link.url }}"{{ if hasPrefix $link.url "http" }} target="_blank" rel="noopener"{{ end }}>{{ $link.name }}</a>
+      </li>
+      {{- end -}}
+    </ul>
+  </section>
+
+</div>
 {{ end }}

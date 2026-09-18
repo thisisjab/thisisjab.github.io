@@ -3,17 +3,23 @@
   Purpose:  Renders the directory of all terms (e.g. /tags/) with post counts
 */}}
 {{ define "main" }}
-<h1>{{ .Title }}</h1>
+<div class="posts-page">
+  <div class="posts-header">
+    <h1 class="posts-title">{{ .Title }}</h1>
+    <a href="{{ "/posts/" | relURL }}" class="posts-tags-link">[all posts]</a>
+  </div>
 
-<div class="terms-content">
-    <ul>
-        {{ range .Data.Terms.Alphabetical }}
-        <li>
-            <a href="{{ .Page.RelPermalink }}">
-                #{{ .Page.Title | lower }} [{{ .Count }}]
-            </a>
-        </li>
-        {{ end }}
+  <div class="terms-content">
+    <ul class="posts-list">
+      {{ range .Data.Terms.Alphabetical }}
+      <li class="post-item">
+        <a href="{{ .Page.RelPermalink }}" class="post-title">
+          #{{ .Page.Title | lower }}
+        </a>
+        <span class="post-date">[{{ .Count }} {{ if eq .Count 1 }}post{{ else }}posts{{ end }}]</span>
+      </li>
+      {{ end }}
     </ul>
+  </div>
 </div>
 {{ end }}

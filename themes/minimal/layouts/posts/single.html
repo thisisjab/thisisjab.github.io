@@ -10,6 +10,13 @@
         <time datetime="{{ .Date }}">
             {{ .Date | time.Format (site.Params.theme_config.date_format | default "2006-01-02") }}
         </time>
+        {{ with .Params.tags }}
+        <div class="post-tags">
+            {{ range . }}
+            <a href="{{ printf "/tags/%s/" (. | urlize) | relURL }}" class="post-tag">#{{ . }}</a>
+            {{ end }}
+        </div>
+        {{ end }}
     </div>
 
     <h1>{{ .Title }}</h1>
@@ -21,15 +28,5 @@
     {{ end }}
 
     {{ .Content }}
-
-    {{ if .Params.tags }}
-        <hr>
-        <div class="post-tags">
-            <strong>Tags:</strong>
-            {{ range .Params.tags }}
-                <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/">#{{ . }}</a>
-            {{ end }}
-        </div>
-    {{ end }}
 </article>
 {{ end }}

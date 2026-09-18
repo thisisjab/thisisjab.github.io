@@ -1,0 +1,59 @@
+// ==============================================================================
+// Code Theme: "minimal" (Pure Color Palette - Zero Typography Overrides)
+// ==============================================================================
+
+.chroma {
+    background-color: var(--code-bg);
+    color: var(--code-text);
+
+    .line {
+        display: flex;
+    }
+
+    .ln, .lnt {
+        color: var(--code-ln);
+        white-space: pre;
+        user-select: none;
+        -webkit-user-select: none;
+        margin-right: 0.4em;
+        padding: 0 0.4em;
+    }
+
+    .lnlinks {
+        outline: none;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .hl {
+        background-color: var(--code-hl);
+    }
+
+    // Whitespace token safety
+    .w {
+        color: inherit;
+        background: transparent;
+        padding: 0;
+        margin: 0;
+    }
+
+    // Pure color definitions (no font-family, no font-size, no font-weight, no font-style)
+    .k, .kd, .kn, .kp, .kr { color: var(--code-kw); }
+    .kt { color: var(--code-type); }
+    .kc, .no { color: var(--code-const); }
+    .n, .nx { color: var(--code-text); }
+    .nf, .fm { color: var(--code-fn); }
+    .nc, .ne { color: var(--code-class); }
+    .nn { color: var(--code-type); }
+    .nv, .vc, .vg, .vi, .vm { color: var(--code-var); }
+    .nb, .bp { color: var(--code-builtin); }
+    .na { color: var(--code-attr); }
+    .s, .sa, .sb, .sc, .dl, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss { color: var(--code-str); }
+    .m, .mb, .mf, .mh, .mi, .il, .mo { color: var(--code-num); }
+    .o, .ow { color: var(--code-op); }
+    .p { color: var(--code-p); }
+    .c, .ch, .cm, .c1, .cs, .cp, .cpf { color: var(--code-comment); }
+    .gi { color: var(--code-kw); }
+    .gd { color: var(--code-const); }
+    .gu { color: var(--code-type); }
+}

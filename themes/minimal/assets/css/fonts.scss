@@ -18,17 +18,19 @@ $font-code:    $font-mono;
 // ------------------------------------------------------------------------------
 // 2. Omarchy Type Scale & Metric Tokens
 // ------------------------------------------------------------------------------
-$text-xs:   0.75rem;   // 12px - tags, badges, captions
+// 2. Type Scale & Metric Tokens (Calibrated for 640px measure)
+// ------------------------------------------------------------------------------
+$text-xs:   0.750rem;  // 12px - tags, badges, captions
 $text-sm:   0.875rem;  // 14px - metadata, code blocks, navigation
 $text-base: 1.000rem;  // 16px - body copy standard
-$text-lg:   1.125rem;  // 18px - lead paragraphs, subtitles
-$text-xl:   1.250rem;  // 20px - h4 headings
-$text-2xl:  1.500rem;  // 24px - h3 headings
-$text-3xl:  1.875rem;  // 30px - h2 headings
-$text-4xl:  2.250rem;  // 36px - h1 page titles
+$text-lg:   1.075rem;  // 17px - h5, h6, subtitles
+$text-xl:   1.175rem;  // 18.8px - h4 headings
+$text-2xl:  1.350rem;  // 21.6px - h3 headings
+$text-3xl:  1.500rem;  // 24px - h2 headings
+$text-4xl:  1.750rem;  // 28px - h1 page and post titles
 
 $leading-tight:   1.25;  // Headings
-$leading-snug:    1.375; // Subheadings
+$leading-snug:    1.35;  // Subheadings
 $leading-normal:  1.500; // List items, code
 $leading-relaxed: 1.625; // Body paragraphs (optimal monospace reading)
 
@@ -69,34 +71,39 @@ h1 {
     line-height: $leading-tight;
     font-weight: $weight-bold;
     margin-top: 1.5rem;
+    color: var(--heading-color, inherit);
 }
 
 h2 {
     font-size: $text-3xl;
     line-height: $leading-snug;
     font-weight: $weight-semibold;
-    margin-top: 2.5rem;
+    margin-top: 2rem;
+    color: var(--subheading-color, inherit);
 }
 
 h3 {
     font-size: $text-2xl;
     line-height: $leading-snug;
     font-weight: $weight-semibold;
-    margin-top: 2rem;
+    margin-top: 1.75rem;
+    color: var(--subheading-color, inherit);
 }
 
 h4 {
     font-size: $text-xl;
     line-height: $leading-normal;
     font-weight: $weight-medium;
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
+    color: var(--subheading-color, inherit);
 }
 
 h5, h6 {
     font-size: $text-lg;
     line-height: $leading-normal;
     font-weight: $weight-medium;
-    margin-top: 1.25rem;
+    margin-top: 1rem;
+    color: var(--subheading-color, inherit);
 }
 
 // ------------------------------------------------------------------------------

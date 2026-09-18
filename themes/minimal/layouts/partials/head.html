@@ -31,6 +31,12 @@
         href="{{ $style.Permalink | relURL }}"
         integrity="{{ $style.Data.Integrity }}"
     />
+    {{- with site.Params.theme_config.subheading_color -}}
+    <style>:root, body { --subheading-color: {{ . }} !important; }</style>
+    {{- end -}}
+    {{- with site.Params.theme_config.heading_color -}}
+    <style>:root, body { --heading-color: {{ . }} !important; }</style>
+    {{- end -}}
     {{ if .Params.mathjax }} {{ partial "mathjax.html" . }} {{ end }}
     <script>
         function initThemeToggle() {
@@ -48,10 +54,12 @@
             localStorage.setItem("theme", savedTheme);
 
             button.addEventListener("click", () => {
+                const scrollY = window.scrollY;
                 const newTheme =
                     body.getAttribute("a") === "dark" ? "light" : "dark";
                 body.setAttribute("a", newTheme);
                 localStorage.setItem("theme", newTheme);
+                window.scrollTo(0, scrollY);
             });
         }
 

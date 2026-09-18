@@ -33,15 +33,26 @@
     {{- if .limit }}
         {{ $posts = (first .limit $posts) }}
     {{ end }}
-    <ul>
+    <ul class="posts-list">
         {{- range $post := $posts -}}
-        <li>
-            <span>{{- ($post.Date | time.Format (site.Params.theme_config.date_format | default "2006-01-02")) }}</span>
-            <a href="{{ $post.RelPermalink }}">{{ $post.Title }}</a>
+        <li class="post-item">
+            <div class="post-entry">
+                <time class="post-date" datetime="{{ $post.Date }}">{{- ($post.Date | time.Format (site.Params.theme_config.date_format | default "2006-01-02")) }}</time>
+                <a href="{{ $post.RelPermalink }}" class="post-title">{{ $post.Title }}</a>
+            </div>
+            {{ if or $.show_tags (ne $.show_tags false) }}
+            {{ with $post.Params.tags }}
+            <div class="post-tags">
+                {{ range . }}
+                <a href="{{ printf "/tags/%s/" (. | urlize) | relURL }}" class="post-tag">#{{ . }}</a>
+                {{ end }}
+            </div>
+            {{ end }}
+            {{ end }}
         </li>
         {{ end }}
         {{- if and .show_more $limit_exceeded }}
-            <li><a href="{{ .show_more_url | relURL }}">{{ .show_more_text | default "Show more..." }}</a></li>
+            <li class="post-more"><a href="{{ .show_more_url | relURL }}">{{ .show_more_text | default "Show more..." }}</a></li>
         {{ end }}
     </ul>
 {{ end }}

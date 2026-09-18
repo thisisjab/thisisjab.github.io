@@ -5,16 +5,16 @@
             main content block, footer, and optional custom_js scripts
 */}}
 <!doctype html>
-<html lang="{{ site.LanguageCode | default "en-us" }}">
+<html lang="{{ site.Language.Locale | default "en-us" }}">
   {{- partial "head.html" . -}}
   <body a="auto">
     {{- partial "header.html" . -}}
     <main class="page-content" aria-label="Content">
       <div class="w">
         {{- block "main" . }}{{- end }}
-        {{- partial "footer.html" . -}}
       </div>
     </main>
+    {{- partial "footer.html" . -}}
     {{- if .Params.custom_js -}}
       {{- range .Params.custom_js -}}
         {{- $js := resources.Get (printf "js/%s.js" .) -}}

@@ -1,14 +1,13 @@
 {{/*
   Partial: Site Footer (layouts/partials/footer.html)
-  Purpose: Renders footer copyright or custom layouts/footer.md content
+  Purpose: Full-width bottom bar displaying site [now] status
+  Format:  [now] Exploring distributed systems and AI
 */}}
-{{ if site.Params.theme_config.isShowFooter }}
-  {{ $footerContent := readFile "layouts/footer.md" }}
-  {{ if and $footerContent (ne $footerContent "") }}
-    {{ $footerContent | markdownify }}
-  {{ else }}
-    <footer class="site-footer" style="display: flex; justify-content: center">
-      <p>&copy; {{ now.Format "2006" }} {{ site.Title }}</p>
-    </footer>
-  {{ end }}
-{{ end }}
+{{- if ne site.Params.theme_config.isShowFooter false -}}
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span class="now-prefix">[now]</span>
+    <span class="now-text">{{ site.Params.theme_config.footer_now | default "Exploring distributed systems and AI" }}</span>
+  </div>
+</footer>
+{{- end -}}

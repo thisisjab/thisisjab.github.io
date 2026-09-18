@@ -14,6 +14,35 @@
     $--visited-link-color,
     $--highlight
 ) {
+    --bg-color: #{$--bg-color};
+    --primary-text-color: #{$--primary-text-color};
+    --secondary-text-color: #{$--secondary-text-color};
+    --heading-color: #{$--secondary-text-color};
+    --subheading-color: #{$--secondary-text-color};
+    --muted-color: rgba(#{$--primary-text-color}, 0.6);
+    --border-color: rgba(#{$--primary-text-color}, 0.12);
+    --link-color: #{$--link-color};
+    --visited-link-color: #{$--visited-link-color};
+    --highlight: #{$--highlight};
+
+    // Code Theme: minimal (Base defaults derived from site palette)
+    --code-bg: var(--bg-color);
+    --code-text: var(--primary-text-color);
+    --code-kw: var(--link-color);
+    --code-type: var(--secondary-text-color);
+    --code-fn: var(--heading-color);
+    --code-str: #e5c07b;
+    --code-num: #d19a66;
+    --code-const: #e06c75;
+    --code-comment: var(--muted-color);
+    --code-op: var(--primary-text-color);
+    --code-builtin: var(--link-color);
+    --code-var: var(--primary-text-color);
+    --code-attr: var(--secondary-text-color);
+    --code-class: var(--heading-color);
+    --code-ln: var(--muted-color);
+    --code-hl: var(--highlight);
+
     background-color: $--bg-color;
     color: $--primary-text-color;
 
@@ -43,12 +72,12 @@
     }
 
     pre {
-        background: $--bg-color;
+        background: var(--code-bg, $--bg-color);
     }
 
     code:not(pre > code) {
-        background-color: $--primary-text-color;
-        color: $--bg-color;
+        background-color: rgba($--primary-text-color, 0.1);
+        color: $--primary-text-color;
     }
 
     *:target {
@@ -71,29 +100,13 @@
     }
 
     blockquote {
-        border: thin solid $--primary-text-color;
-
-        p::before,
-        p::after {
-            color: $--link-color;
-            font-weight: 900;
-        }
-
-        p::before {
-            content: "“";
-            margin-right: 0.5rem;
-        }
-
-        p::after {
-            content: "”";
-            margin-left: 0.5rem;
-            align-self: flex-end;
-        }
+        border-left: 3px solid $--link-color;
+        color: var(--muted-color);
     }
 
     .site-header {
         background-color: rgba($--bg-color, 0.85);
-        border-bottom-color: rgba($--primary-text-color, 0.15);
+        border-bottom: 1px solid rgba($--primary-text-color, 0.12);
 
         .site-brand {
             color: $--primary-text-color;
@@ -101,6 +114,32 @@
 
         .nav-item {
             color: $--link-color;
+        }
+    }
+
+    .site-footer {
+        background-color: rgba($--bg-color, 0.85);
+        border-top: 1px solid rgba($--primary-text-color, 0.12);
+
+        .now-prefix {
+            color: $--link-color;
+        }
+
+        .now-text {
+            color: var(--muted-color);
+        }
+    }
+
+    .posts-tags-link {
+        color: $--link-color;
+    }
+
+    .post-tag {
+        color: var(--muted-color);
+
+        &:hover {
+            color: $--link-color;
+            border-color: $--link-color;
         }
     }
 }
@@ -120,6 +159,21 @@
         #00ff00, // visited: matrix green
         #003300  // highlight: dark matrix green
     );
+
+    // Code Theme: minimal overrides for Dark Mode
+    --code-bg:          #0d0f10;
+    --code-text:        #e0e0e0;
+    --code-kw:          #00ff00; // matrix green
+    --code-type:        #79c0ff; // sky cyan
+    --code-fn:          #ffffff; // clean white
+    --code-str:         #f1fa8c; // soft amber
+    --code-num:         #ff9e64; // orange
+    --code-const:       #ff7b72; // coral
+    --code-comment:     #666666; // muted gray
+    --code-op:          #e0e0e0;
+    --code-builtin:     #79c0ff;
+    --code-ln:          #555555;
+    --code-hl:          #002200;
 }
 
 @mixin light-appearance {
@@ -132,6 +186,21 @@
         #008800, // visited: rich green
         #dce8dc  // highlight: subtle pale green
     );
+
+    // Code Theme: minimal overrides for Light Mode
+    --code-bg:          #e8ece8;
+    --code-text:        #1a2a1a;
+    --code-kw:          #008800; // rich green
+    --code-type:        #0969da; // blue
+    --code-fn:          #1a2a1a; // dark text
+    --code-str:         #855a00; // warm cedar
+    --code-num:         #bc4c00; // terracotta
+    --code-const:       #cf222e; // crimson
+    --code-comment:     #656d76; // neutral gray
+    --code-op:          #1a2a1a;
+    --code-builtin:     #0969da;
+    --code-ln:          #8c959f;
+    --code-hl:          #dce8dc;
 }
 
 // --- Preset: Catppuccin (Uncomment to use) ---

@@ -46,15 +46,6 @@ It’s designed to be flexible enough for complex queries but small enough to st
 * **Scaling Logzilla:** Seeing just how far this project can go.
 * **Skill Expansion:** Deepening my knowledge in **DevOps** and system architecture.
 
-## Open to Work
-
-I'm actively looking for my next opportunity as a **Software Engineer**. If you're working on something meaningful and think I could help, let’s talk.
-
-* **Role:** Software Engineer (Backend focus)
-* **Location:** Remote or Hybrid **strongly preferred** (On-site considered)
-* **Email:** [heythisisjab@gmail.com](mailto:heythisisjab@gmail.com)
-* **LinkedIn:** [thisisjab](https://linkedin.com/in/thisisjab)
-
 ---
 
 ![Train rail](/images/photography/train.webp)

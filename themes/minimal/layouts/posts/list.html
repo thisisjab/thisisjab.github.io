@@ -5,21 +5,37 @@
             (supports year grouping via params.theme_config.isListGroupByDate)
 */}}
 {{ define "main" }}
-<h1>{{ .Title }}</h1>
+<div class="posts-page">
+  <div class="posts-header">
+    <h1 class="posts-title">{{ .Title }}</h1>
+    <a href="{{ "/tags/" | relURL }}" class="posts-tags-link">[tags]</a>
+  </div>
 
-{{ .Content }}
+  {{ .Content }}
 
-{{ if site.Params.theme_config.isListGroupByDate }}
-    {{ range .Pages.GroupByDate "2006 Year" }}
-    <p>{{ .Key }}</p>
-    <ul>
-        {{ range .Pages }}
-            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-        {{ end }}
-    </ul>
-    {{ end }}
-{{ else }}
-    {{ partial "post_list.html" (dict "context" . "section" .Section) }}
-{{ end }}
-
+  {{ if site.Params.theme_config.isListGroupByDate }}
+      {{ range .Pages.GroupByDate "2006 Year" }}
+      <p class="posts-year">{{ .Key }}</p>
+      <ul class="posts-list">
+          {{ range .Pages }}
+          <li class="post-item">
+              <div class="post-entry">
+                  <time class="post-date" datetime="{{ .Date }}">{{ .Date | time.Format (site.Params.theme_config.date_format | default "2006-01-02") }}</time>
+                  <a href="{{ .RelPermalink }}" class="post-title">{{ .Title }}</a>
+              </div>
+              {{ with .Params.tags }}
+              <div class="post-tags">
+                  {{ range . }}
+                  <a href="{{ printf "/tags/%s/" (. | urlize) | relURL }}" class="post-tag">#{{ . }}</a>
+                  {{ end }}
+              </div>
+              {{ end }}
+          </li>
+          {{ end }}
+      </ul>
+      {{ end }}
+  {{ else }}
+      {{ partial "post_list.html" (dict "context" . "section" .Section "show_tags" true) }}
+  {{ end }}
+</div>
 {{ end }}

@@ -1,6 +1,6 @@
 baseURL = 'https://thisisjab.github.io/'
 locale = 'en-us'
-title = '<thisisjab/>'
+title = 'Jab'
 theme = 'minimal'
 
 taxonomies = { tag = "tags" }
@@ -14,11 +14,9 @@ cascade.params = { toc = false, tocBorder = false }
     guessSyntax        = false
     lineNos            = true 
     lineNumbersInTable = false 
-    noClasses          = true 
+    noClasses          = false 
     hl_inline = false 
-    # style = 'catppuccin-frappe'
-    # style              = 'modus-vivendi'
-    style = 'xcode-dark'
+    style = 'catppuccin-mocha'
 
   [markup.tableOfContents]
     startLevel = 1
@@ -33,4 +31,13 @@ cascade.params = { toc = false, tocBorder = false }
     back_home_text    = "<<<"
     date_format       = "2006-01-02"
     isListGroupByDate = false
-    isShowFooter      = false 
+    isShowFooter      = true
+    footer_now        = "Exploring distributed systems and AI"
+    links_title       = "Links"
+    # Optional status badge (leave empty or commented to disable):
+    # status          = "open to work"
+    # Optional default location:
+    # location        = "Iran"
+    # Optional color overrides:
+    # subheading_color = "#d4d4d4"
+    # heading_color    = "#ffffff"
