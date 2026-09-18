@@ -1,0 +1,47 @@
+{{/*
+  Partial: Post List Loop (layouts/partials/post_list.html)
+  Purpose: Renders a list of posts with dates and titles
+  Parameters:
+    - section: (string, optional) filter posts by section (e.g. "posts")
+    - limit: (int, optional) maximum number of posts to render
+    - show_more: (bool, optional) render "Show more..." link if limit exceeded
+    - show_more_text: (string, optional) custom link text
+    - show_more_url: (string, optional) destination URL
+*/}}
+{{- $posts := "" -}}
+
+{{- if .section -}}
+    {{- $posts = (where site.RegularPages "Section" .section) -}}
+{{- else -}}
+    {{- if (eq .context.Kind "taxonomy") -}}
+        {{- $posts = .context.Pages -}}
+    {{- else -}}
+        {{- if (eq .context.Kind "term") -}}
+            {{- $posts = .context.Data.Pages -}}
+        {{- else -}}
+            {{- $posts = site.RegularPages }}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+
+{{- $limit_exceeded := false -}}
+{{- if (and .limit (gt (len $posts) .limit)) -}}
+    {{- $limit_exceeded = true -}}
+{{- end -}}
+
+{{- if (gt (len $posts) 0) }}
+    {{- if .limit }}
+        {{ $posts = (first .limit $posts) }}
+    {{ end }}
+    <ul>
+        {{- range $post := $posts -}}
+        <li>
+            <span>{{- ($post.Date | time.Format (site.Params.theme_config.date_format | default "2006-01-02")) }}</span>
+            <a href="{{ $post.RelPermalink }}">{{ $post.Title }}</a>
+        </li>
+        {{ end }}
+        {{- if and .show_more $limit_exceeded }}
+            <li><a href="{{ .show_more_url | relURL }}">{{ .show_more_text | default "Show more..." }}</a></li>
+        {{ end }}
+    </ul>
+{{ end }}

@@ -1,0 +1,5 @@
+{{/*
+  Shortcode: TeX Display Alias (layouts/shortcodes/texd.html)
+  Purpose:   Backward-compatible alias forwarding to math_display.html
+*/}}
+{{ partial "shortcodes/math_display.html" . | default (printf "<span>$$%s$$</span>" (.Get 0)) | safeHTML }}

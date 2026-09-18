@@ -1,0 +1,14 @@
+{{/*
+  Shortcode: Expandable Details Accordion (layouts/shortcodes/details.html)
+  Purpose:   Renders an HTML5 <details>/<summary> accordion widget
+  Usage:
+    {{< details summary="Click to view solution" open="true" >}}
+    Markdown content here...
+    {{< /details >}}
+*/}}
+<details {{ if eq (.Get "open" | default "false") "true" }}open{{ end }}>
+    <summary>
+        {{ .Get "summary" | default "Details:" }}
+    </summary>
+    {{ .Inner | markdownify }}
+</details>

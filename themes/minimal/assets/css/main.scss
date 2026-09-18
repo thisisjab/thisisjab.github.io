@@ -1,0 +1,14 @@
+// ==============================================================================
+// Minimal Theme - Main Entry Point
+// ==============================================================================
+// Orchestrates modular SCSS stylesheets in logical order:
+// 1. colors:     Palettes, dark/light themes, borders, selection colors
+// 2. fonts:      Typography, font-families, font sizes, headings
+// 3. layout:     Page wrapper (.w), document structure, dividers
+// 4. components: Links, code blocks, tables, quotes, details, toggle button
+// ==============================================================================
+
+@import "colors";
+@import "fonts";
+@import "layout";
+@import "components";

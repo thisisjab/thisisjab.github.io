@@ -1,0 +1,35 @@
+{{/*
+  Template: Single Post Layout (layouts/posts/single.html)
+  Purpose:  Renders individual blog articles under /posts/<slug>/
+  Features: Publication date metadata, article title, optional Table of Contents,
+            content body, and tag badges
+*/}}
+{{ define "main" }}
+<article class="post">
+    <div class="post-meta">
+        <time datetime="{{ .Date }}">
+            {{ .Date | time.Format (site.Params.theme_config.date_format | default "2006-01-02") }}
+        </time>
+    </div>
+
+    <h1>{{ .Title }}</h1>
+
+    {{ if .Params.toc }}
+        <aside {{ if .Params.tocBorder }}class="toc"{{ end }}>
+            {{ .TableOfContents }}
+        </aside>
+    {{ end }}
+
+    {{ .Content }}
+
+    {{ if .Params.tags }}
+        <hr>
+        <div class="post-tags">
+            <strong>Tags:</strong>
+            {{ range .Params.tags }}
+                <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/">#{{ . }}</a>
+            {{ end }}
+        </div>
+    {{ end }}
+</article>
+{{ end }}

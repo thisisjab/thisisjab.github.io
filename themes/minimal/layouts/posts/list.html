@@ -1,0 +1,25 @@
+{{/*
+  Template: Posts List Layout (layouts/posts/list.html)
+  Purpose:  Renders the archive list of blog posts under /posts/
+  Features: Section title, content, and post list
+            (supports year grouping via params.theme_config.isListGroupByDate)
+*/}}
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+
+{{ .Content }}
+
+{{ if site.Params.theme_config.isListGroupByDate }}
+    {{ range .Pages.GroupByDate "2006 Year" }}
+    <p>{{ .Key }}</p>
+    <ul>
+        {{ range .Pages }}
+            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+        {{ end }}
+    </ul>
+    {{ end }}
+{{ else }}
+    {{ partial "post_list.html" (dict "context" . "section" .Section) }}
+{{ end }}
+
+{{ end }}

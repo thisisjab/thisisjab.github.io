@@ -1,0 +1,157 @@
+// ==============================================================================
+// Typography & Fonts Configuration (Modeled after Omarchy)
+// ==============================================================================
+
+// ------------------------------------------------------------------------------
+// 1. Font Families
+// ------------------------------------------------------------------------------
+// Heading font:
+// - "IBM Plex Serif" (Google Fonts: https://fonts.google.com/specimen/IBM+Plex+Serif)
+$font-heading: "IBM Plex Serif", Georgia, Cambria, "Times New Roman", Times, serif;
+
+// Monospace font stack (Caskaydia / Cascadia Code):
+$font-mono:    "CaskaydiaCove Nerd Font", "Caskaydia", "Cascadia Code", monospace;
+
+$font-body:    $font-mono;
+$font-code:    $font-mono;
+
+// ------------------------------------------------------------------------------
+// 2. Omarchy Type Scale & Metric Tokens
+// ------------------------------------------------------------------------------
+$text-xs:   0.75rem;   // 12px - tags, badges, captions
+$text-sm:   0.875rem;  // 14px - metadata, code blocks, navigation
+$text-base: 1.000rem;  // 16px - body copy standard
+$text-lg:   1.125rem;  // 18px - lead paragraphs, subtitles
+$text-xl:   1.250rem;  // 20px - h4 headings
+$text-2xl:  1.500rem;  // 24px - h3 headings
+$text-3xl:  1.875rem;  // 30px - h2 headings
+$text-4xl:  2.250rem;  // 36px - h1 page titles
+
+$leading-tight:   1.25;  // Headings
+$leading-snug:    1.375; // Subheadings
+$leading-normal:  1.500; // List items, code
+$leading-relaxed: 1.625; // Body paragraphs (optimal monospace reading)
+
+$tracking-tight:  -0.025em; // Headings
+$tracking-normal:  0;
+$tracking-wide:    0.025em; // Badges, dates, metadata
+$tracking-widest:  0.100em; // Uppercase code labels
+
+$weight-normal:   400;
+$weight-medium:   500;
+$weight-semibold: 600;
+$weight-bold:     700;
+
+// ------------------------------------------------------------------------------
+// 3. Document Body Typography
+// ------------------------------------------------------------------------------
+body {
+    font-family: $font-body;
+    font-size: $text-base;
+    line-height: $leading-relaxed;
+    font-weight: $weight-normal;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+// ------------------------------------------------------------------------------
+// 4. Headings Scale & Hierarchy
+// ------------------------------------------------------------------------------
+h1, h2, h3, h4, h5, h6 {
+    font-family: $font-heading;
+    letter-spacing: $tracking-tight;
+    text-wrap: balance;
+    margin-bottom: 0.5em;
+}
+
+h1 {
+    font-size: $text-4xl;
+    line-height: $leading-tight;
+    font-weight: $weight-bold;
+    margin-top: 1.5rem;
+}
+
+h2 {
+    font-size: $text-3xl;
+    line-height: $leading-snug;
+    font-weight: $weight-semibold;
+    margin-top: 2.5rem;
+}
+
+h3 {
+    font-size: $text-2xl;
+    line-height: $leading-snug;
+    font-weight: $weight-semibold;
+    margin-top: 2rem;
+}
+
+h4 {
+    font-size: $text-xl;
+    line-height: $leading-normal;
+    font-weight: $weight-medium;
+    margin-top: 1.5rem;
+}
+
+h5, h6 {
+    font-size: $text-lg;
+    line-height: $leading-normal;
+    font-weight: $weight-medium;
+    margin-top: 1.25rem;
+}
+
+// ------------------------------------------------------------------------------
+// 5. Prose & Content Flow
+// ------------------------------------------------------------------------------
+p {
+    margin: 1.25rem 0;
+    text-align: left;
+    line-height: $leading-relaxed;
+}
+
+li {
+    margin: 0.4rem 0;
+    line-height: $leading-normal;
+}
+
+strong, b {
+    font-weight: $weight-bold;
+}
+
+figcaption {
+    font-size: $text-xs;
+    letter-spacing: $tracking-wide;
+    text-align: center;
+    opacity: 0.6;
+    margin-top: 0.5rem;
+}
+
+// ------------------------------------------------------------------------------
+// 6. Monospace & Code Elements
+// ------------------------------------------------------------------------------
+code, pre, kbd, samp {
+    font-family: $font-code;
+    font-size: $text-sm;
+}
+
+code {
+    text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+code:not(pre > code) {
+    padding: 0.15em 0.35em;
+    font-size: 0.875em;
+}
+
+pre {
+    line-height: $leading-normal;
+}
+
+code.has-jax {
+    -webkit-font-smoothing: antialiased;
+    background: inherit !important;
+    border: none !important;
+    font-size: 100%;
+}

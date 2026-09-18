@@ -1,0 +1,94 @@
+// ==============================================================================
+// Page Layout & Structure Configuration
+// ==============================================================================
+
+// ------------------------------------------------------------------------------
+// 1. Root & Document Frame
+// ------------------------------------------------------------------------------
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100%;
+    overflow-wrap: break-word;
+    position: relative;
+}
+
+// ------------------------------------------------------------------------------
+// 2. Main Content Container
+// ------------------------------------------------------------------------------
+.w {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+// ------------------------------------------------------------------------------
+// 3. Post Metadata Layout
+// ------------------------------------------------------------------------------
+.post-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+// ------------------------------------------------------------------------------
+// 4. Content Dividers
+// ------------------------------------------------------------------------------
+hr {
+    text-align: center;
+    border: 0;
+    margin: 2rem 0;
+
+    &:before {
+        content: "|||||||";
+    }
+
+    &:after {
+        content: attr(data-content) "|||||||";
+    }
+}
+
+// ------------------------------------------------------------------------------
+// 5. Sticky Top Bar Header (Omarchy Style)
+// ------------------------------------------------------------------------------
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+
+    .header-inner {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 0.85rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .site-brand {
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .header-nav {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .nav-item {
+        text-decoration: none;
+        font-size: 0.875rem;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+

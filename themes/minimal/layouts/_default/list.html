@@ -1,0 +1,11 @@
+{{/*
+  Template: Default List Layout (layouts/_default/list.html)
+  Purpose:  Fallback list layout for generic sections or taxonomy listings
+*/}}
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+
+{{ .Content }}
+
+{{ partial "post_list.html" (dict "context" . "section" .Section) }}
+{{ end }}

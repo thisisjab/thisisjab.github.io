@@ -1,0 +1,5 @@
+{{/*
+  Shortcode: TeX Inline Alias (layouts/shortcodes/texi.html)
+  Purpose:   Backward-compatible alias forwarding to math_inline.html
+*/}}
+{{ partial "shortcodes/math_inline.html" . | default (printf "<span>\\(%s\\)</span>" (.Get 0)) | safeHTML }}

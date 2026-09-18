@@ -1,0 +1,8 @@
+{{/*
+  Shortcode: Inline Math (layouts/shortcodes/math_inline.html)
+  Purpose:   Renders inline LaTeX math \(...\)
+  Usage:     {{< math_inline "a^2 + b^2 = c^2" >}} or {{< texi "a^2 + b^2 = c^2" >}}
+*/}}
+<span>
+\({{ .Get 0 }}\)
+</span>

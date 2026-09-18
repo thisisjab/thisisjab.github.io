@@ -1,0 +1,19 @@
+{{/*
+  Template: All Taxonomy Terms Index (layouts/_default/terms.html)
+  Purpose:  Renders the directory of all terms (e.g. /tags/) with post counts
+*/}}
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+
+<div class="terms-content">
+    <ul>
+        {{ range .Data.Terms.Alphabetical }}
+        <li>
+            <a href="{{ .Page.RelPermalink }}">
+                #{{ .Page.Title | lower }} [{{ .Count }}]
+            </a>
+        </li>
+        {{ end }}
+    </ul>
+</div>
+{{ end }}

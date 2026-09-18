@@ -1,0 +1,8 @@
+{{/*
+  Shortcode: Display Math Block (layouts/shortcodes/math_display.html)
+  Purpose:   Renders centered block LaTeX display math $$...$$
+  Usage:     {{< math_display "E = mc^2" >}} or {{< texd "E = mc^2" >}}
+*/}}
+<span>
+$${{ .Get 0 }}$$
+</span>

@@ -1,0 +1,14 @@
+{{/*
+  Partial: Top Bar Header (layouts/partials/header.html)
+  Purpose: Sticky navigation bar inspired by Omarchy
+  Format:  [site name] ------ [rss] [theme]
+*/}}
+<header class="site-header">
+  <div class="header-inner">
+    <a href="{{ "" | relURL }}" class="site-brand">{{ site.Title }}</a>
+    <nav class="header-nav">
+      <a href="{{ "index.xml" | relURL }}" class="nav-item">[rss]</a>
+      <a href="#" class="nav-item theme-toggle" aria-label="Toggle theme">[theme]</a>
+    </nav>
+  </div>
+</header>

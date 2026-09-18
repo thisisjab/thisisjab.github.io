@@ -1,0 +1,14 @@
+{{/*
+  Partial: Site Footer (layouts/partials/footer.html)
+  Purpose: Renders footer copyright or custom layouts/footer.md content
+*/}}
+{{ if site.Params.theme_config.isShowFooter }}
+  {{ $footerContent := readFile "layouts/footer.md" }}
+  {{ if and $footerContent (ne $footerContent "") }}
+    {{ $footerContent | markdownify }}
+  {{ else }}
+    <footer class="site-footer" style="display: flex; justify-content: center">
+      <p>&copy; {{ now.Format "2006" }} {{ site.Title }}</p>
+    </footer>
+  {{ end }}
+{{ end }}

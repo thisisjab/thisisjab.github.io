@@ -1,0 +1,235 @@
+// ==============================================================================
+// Colors & Themes Configuration
+// ==============================================================================
+
+// ------------------------------------------------------------------------------
+// 1. Theme Mixin
+// ------------------------------------------------------------------------------
+// Maps color parameters to appropriate HTML elements across the site.
+@mixin theme(
+    $--bg-color,
+    $--primary-text-color,
+    $--secondary-text-color,
+    $--link-color,
+    $--visited-link-color,
+    $--highlight
+) {
+    background-color: $--bg-color;
+    color: $--primary-text-color;
+
+    a {
+        color: $--link-color;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: $--secondary-text-color;
+    }
+
+    details {
+        border: thin solid $--primary-text-color;
+
+        summary {
+            color: $--primary-text-color;
+        }
+
+        &[open] summary {
+            border-bottom: 1px solid $--primary-text-color;
+        }
+    }
+
+    pre {
+        background: $--bg-color;
+    }
+
+    code:not(pre > code) {
+        background-color: $--primary-text-color;
+        color: $--bg-color;
+    }
+
+    *:target {
+        background: $--highlight;
+        color: $--primary-text-color;
+    }
+
+    table,
+    th,
+    td {
+        border: thin solid $--primary-text-color;
+    }
+
+    .toc {
+        border: thin solid $--primary-text-color;
+    }
+
+    figcaption {
+        color: $--secondary-text-color;
+    }
+
+    blockquote {
+        border: thin solid $--primary-text-color;
+
+        p::before,
+        p::after {
+            color: $--link-color;
+            font-weight: 900;
+        }
+
+        p::before {
+            content: "“";
+            margin-right: 0.5rem;
+        }
+
+        p::after {
+            content: "”";
+            margin-left: 0.5rem;
+            align-self: flex-end;
+        }
+    }
+
+    .site-header {
+        background-color: rgba($--bg-color, 0.85);
+        border-bottom-color: rgba($--primary-text-color, 0.15);
+
+        .site-brand {
+            color: $--primary-text-color;
+        }
+
+        .nav-item {
+            color: $--link-color;
+        }
+    }
+}
+
+// ------------------------------------------------------------------------------
+// 2. Theme Palettes
+// ------------------------------------------------------------------------------
+
+// --- Preset: Matrix (Active) ---
+@mixin dark-appearance {
+    /* Matrix Dark */
+    @include theme(
+        #000000, // bg: black
+        #ffffff, // text: white
+        #00ff00, // secondary text: matrix green
+        #00ff00, // links: matrix green
+        #00ff00, // visited: matrix green
+        #003300  // highlight: dark matrix green
+    );
+}
+
+@mixin light-appearance {
+    /* Matrix Light */
+    @include theme(
+        #f0f5f0, // bg: very light green-tinted off-white
+        #1a2a1a, // text: dark muted green
+        #006600, // secondary text: deeper matrix green
+        #008800, // links: rich green
+        #008800, // visited: rich green
+        #dce8dc  // highlight: subtle pale green
+    );
+}
+
+// --- Preset: Catppuccin (Uncomment to use) ---
+// @mixin dark-appearance {
+//     /* Catppuccin Mocha */
+//     @include theme(
+//         #1e1e2e, // bg: base
+//         #cdd6f4, // text: text
+//         #9399b2, // secondary text: subtext0
+//         #89b4fa, // links: blue
+//         #cba6f7, // visited: mauve
+//         #313244  // highlight: surface0
+//     );
+// }
+// @mixin light-appearance {
+//     /* Catppuccin Latte */
+//     @include theme(
+//         #eff1f5, // bg: base
+//         #4c4f69, // text: text
+//         #6c6f85, // secondary text: subtext0
+//         #1e66f5, // links: blue
+//         #8839ef, // visited: mauve
+//         #e6e9ef  // highlight: surface0
+//     );
+// }
+
+// --- Preset: Nightfox / GitHub (Uncomment to use) ---
+// @mixin dark-appearance {
+//     /* Nightfox Carbon Dark */
+//     @include theme(
+//         #161616, // bg: carbon black
+//         #f2f4f8, // text: primary white/blue-gray
+//         #b6beca, // secondary text
+//         #78a9ff, // links: blue
+//         #be95ff, // visited: purple
+//         #2a2a2a  // highlight: selection/ui-bg
+//     );
+// }
+// @mixin light-appearance {
+//     /* GitHub Light */
+//     @include theme(
+//         #ffffff, // bg: white
+//         #1f2328, // text: dark gray/black
+//         #657b83, // secondary text
+//         #0969da, // links: github blue
+//         #8250df, // visited: github purple
+//         #fff8c5  // highlight: yellow alert/selection
+//     );
+// }
+
+// --- Preset: Modus (Uncomment to use) ---
+// @mixin dark-appearance {
+//     @include theme(#000000, #ffffff, #000000, #79a8ff, #f78fe7, #2f3849); // modus-vivendi
+// }
+// @mixin light-appearance {
+//     @include theme(#ffffff, #000000, #595959, #3548cf, #8f0075, #dae5ec); // modus-operandi
+// }
+
+// ------------------------------------------------------------------------------
+// 3. Theme Application & System Preference Media Queries
+// ------------------------------------------------------------------------------
+body[a="dark"] {
+    @include dark-appearance;
+}
+
+body[a="light"] {
+    @include light-appearance;
+}
+
+@media (prefers-color-scheme: dark) {
+    body[a="auto"] {
+        @include dark-appearance;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body[a="auto"] {
+        @include light-appearance;
+    }
+}
+
+// ------------------------------------------------------------------------------
+// 4. Text Selection Highlighting
+// ------------------------------------------------------------------------------
+::selection {
+    background-color: #00ff00; // Matrix green background
+    color: #000000;            // Black text for contrast
+    text-shadow: none;
+}
+
+::-moz-selection {
+    background-color: #00ff00;
+    color: #000000;
+    text-shadow: none;
+}
+
+pre::selection,
+code::selection {
+    background-color: #00cc00; // Slightly darker green for code
+    color: #000000;
+}

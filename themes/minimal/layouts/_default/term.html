@@ -1,0 +1,18 @@
+{{/*
+  Template: Single Taxonomy Term Page (layouts/_default/term.html)
+  Purpose:  Renders list of posts tagged with a specific keyword (e.g. /tags/go/)
+*/}}
+{{ define "main" }}
+<h1>#{{ .Title | lower }}</h1>
+
+<div class="term-content">
+    <ul class="post-list">
+        {{ range .Data.Pages }}
+        <li>
+            <span>{{ .Date | time.Format (site.Params.theme_config.date_format | default "2006-01-02") }}</span>
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </li>
+        {{ end }}
+    </ul>
+</div>
+{{ end }}

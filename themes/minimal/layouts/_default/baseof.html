@@ -1,0 +1,27 @@
+{{/*
+  Template: Master Base Shell (layouts/_default/baseof.html)
+  Purpose:  Top-level HTML frame used by all pages across the site
+  Features: Document head, sticky header bar, container wrapper (.w),
+            main content block, footer, and optional custom_js scripts
+*/}}
+<!doctype html>
+<html lang="{{ site.LanguageCode | default "en-us" }}">
+  {{- partial "head.html" . -}}
+  <body a="auto">
+    {{- partial "header.html" . -}}
+    <main class="page-content" aria-label="Content">
+      <div class="w">
+        {{- block "main" . }}{{- end }}
+        {{- partial "footer.html" . -}}
+      </div>
+    </main>
+    {{- if .Params.custom_js -}}
+      {{- range .Params.custom_js -}}
+        {{- $js := resources.Get (printf "js/%s.js" .) -}}
+        {{- if $js -}}
+          <script type="text/javascript" src="{{ $js.RelPermalink }}"></script>
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  </body>
+</html>
