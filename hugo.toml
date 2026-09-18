@@ -133,6 +133,9 @@ taxonomies = { tag = "tags" }
     # Display the [blog] link in the header top bar
     show_blog             = true
 
+    # Display the [gallery] link in the header top bar
+    show_gallery          = true
+
     # Display the [rss] feed link in the header top bar
     show_rss              = true
 
@@ -143,7 +146,20 @@ taxonomies = { tag = "tags" }
     show_tags             = true
 
   # ============================================================================
-  # 6. Feature Flags
+  # 6. Gallery Grid Configuration
+  # ============================================================================
+  [params.gallery]
+    # Number of columns on desktop viewports (e.g. 2, 3, or 4)
+    columns               = 3
+
+    # Gap between photos in the masonry grid (e.g. "1rem")
+    gap                   = "1rem"
+
+    # Show caption overlay on hover
+    show_caption_hover    = true
+
+  # ============================================================================
+  # 7. Feature Flags
   # ============================================================================
   [params.features]
     # Enable clickable post images with dark blurry lightbox overlay

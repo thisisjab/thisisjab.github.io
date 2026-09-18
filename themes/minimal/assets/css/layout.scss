@@ -368,4 +368,45 @@ hr {
     font-size: 0.875rem;
 }
 
+// ------------------------------------------------------------------------------
+// 9. External Posts Styling
+// ------------------------------------------------------------------------------
+.post-external-badge {
+    font-size: 0.75rem;
+    color: var(--link-color);
+    margin-left: 0.4rem;
+    font-family: var(--font-code, monospace);
+    vertical-align: baseline;
+    white-space: nowrap;
+}
+
+.external-post-banner {
+    margin: 1.5rem 0;
+    padding: 1.25rem;
+    border: 1px solid var(--border-color, rgba(128, 128, 128, 0.15));
+    border-radius: 0;
+    background-color: rgba(128, 128, 128, 0.03);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+
+    .external-banner-text {
+        margin: 0;
+        font-size: 0.95rem;
+        color: var(--primary-text-color);
+    }
+
+    .external-banner-link {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--link-color);
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
 

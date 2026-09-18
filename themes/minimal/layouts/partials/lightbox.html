@@ -6,6 +6,7 @@
   <div class="lightbox-backdrop"></div>
   <div class="lightbox-content">
     <img class="lightbox-image" src="" alt="" />
+    <div class="lightbox-caption" style="display: none; color: rgba(255, 255, 255, 0.85); font-size: 0.85rem; margin-top: 0.5rem; text-align: center; max-width: 80vw;"></div>
     <button type="button" class="lightbox-close" aria-label="Close image overlay">[close]</button>
   </div>
 </div>
@@ -15,12 +16,23 @@
       const lightbox = document.getElementById("image-lightbox");
       if (!lightbox) return;
       const lightboxImg = lightbox.querySelector(".lightbox-image");
+      const lightboxCap = lightbox.querySelector(".lightbox-caption");
       const backdrop = lightbox.querySelector(".lightbox-backdrop");
       const closeBtn = lightbox.querySelector(".lightbox-close");
 
       function openLightbox(img) {
         lightboxImg.src = img.currentSrc || img.src;
         lightboxImg.alt = img.alt || "";
+        const figcaption = img.closest("figure") ? img.closest("figure").querySelector("figcaption") : null;
+        const captionText = figcaption ? figcaption.textContent.trim() : (img.alt && img.alt !== img.src ? img.alt : "");
+        if (lightboxCap) {
+          if (captionText) {
+            lightboxCap.textContent = captionText;
+            lightboxCap.style.display = "block";
+          } else {
+            lightboxCap.style.display = "none";
+          }
+        }
         lightbox.classList.add("active");
         lightbox.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
@@ -30,10 +42,11 @@
         lightbox.classList.remove("active");
         lightbox.setAttribute("aria-hidden", "true");
         lightboxImg.src = "";
+        if (lightboxCap) lightboxCap.style.display = "none";
         document.body.style.overflow = "";
       }
 
-      document.querySelectorAll("article.post img, .page-content img:not(.home-avatar)").forEach(img => {
+      document.querySelectorAll("article.post img, .page-content img:not(.home-avatar), .gallery-item img").forEach(img => {
         img.addEventListener("click", () => openLightbox(img));
       });
 

@@ -17,6 +17,16 @@
       <a href="{{ "posts/" | relURL }}" class="nav-item">[blog]</a>
       {{ end }}
 
+      {{ $showGallery := false }}
+      {{ if isset site.Params "navigation" }}
+        {{ if isset site.Params.navigation "show_gallery" }}
+          {{ $showGallery = site.Params.navigation.show_gallery }}
+        {{ end }}
+      {{ end }}
+      {{ if $showGallery }}
+      <a href="{{ "gallery/" | relURL }}" class="nav-item">[gallery]</a>
+      {{ end }}
+
       {{ $showRss := true }}
       {{ if isset site.Params "navigation" }}
         {{ if isset site.Params.navigation "show_rss" }}

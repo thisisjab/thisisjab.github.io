@@ -259,3 +259,75 @@ body[a="light"] .theme-toggle .moon {
         }
     }
 }
+
+// ------------------------------------------------------------------------------
+// 10. Unsplash-Style Flexible Gallery Grid
+// ------------------------------------------------------------------------------
+.gallery-grid {
+    column-count: var(--gallery-columns, 3);
+    column-gap: var(--gallery-gap, 1rem);
+    width: 100%;
+    margin: 2rem 0;
+
+    @media (max-width: 800px) {
+        column-count: 2;
+    }
+
+    @media (max-width: 500px) {
+        column-count: 1;
+    }
+}
+
+.gallery-item {
+    break-inside: avoid;
+    margin: 0 0 var(--gallery-gap, 1rem) 0;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border-color, rgba(128, 128, 128, 0.15));
+    border-radius: 0;
+    background-color: rgba(128, 128, 128, 0.04);
+    box-sizing: border-box;
+
+    img {
+        width: 100%;
+        height: auto;
+        min-height: 130px;
+        object-fit: cover;
+        display: block;
+        cursor: zoom-in;
+        transition: filter 0.15s ease-out;
+    }
+
+    &:hover img {
+        filter: brightness(0.85);
+    }
+
+    .gallery-caption {
+        position: absolute;
+        inset: 0;
+        margin: 0;
+        padding: 0.85rem 1rem;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        color: #ffffff;
+        font-size: 0.8rem;
+        line-height: 1.4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow-y: auto;
+        box-sizing: border-box;
+        opacity: 0;
+        transform: translateY(4px);
+        transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+        pointer-events: none;
+    }
+
+    &:hover .gallery-caption,
+    &:focus-within .gallery-caption {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

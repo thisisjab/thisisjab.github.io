@@ -1,0 +1,25 @@
+{{/*
+  Template: Gallery Section Archive (layouts/gallery/list.html)
+  Purpose:  Renders an Unsplash.com-style flexible masonry photo grid
+*/}}
+{{ define "main" }}
+<div class="gallery-page">
+  <div class="posts-header">
+    <h1 class="posts-title">{{ .Title }}</h1>
+  </div>
+  {{ with .Content }}
+  <div class="gallery-description">{{ . }}</div>
+  {{ end }}
+
+  <div class="gallery-grid">
+    {{ range .Params.images }}
+    <figure class="gallery-item">
+      <img src="{{ .src | relURL }}" alt="{{ .alt | default .caption }}" loading="lazy" />
+      {{ with .caption }}
+      <figcaption class="gallery-caption">{{ . }}</figcaption>
+      {{ end }}
+    </figure>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

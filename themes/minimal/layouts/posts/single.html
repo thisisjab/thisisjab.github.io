@@ -21,6 +21,16 @@
 
     <h1>{{ .Title }}</h1>
 
+    {{ $isExternal := or .Params.external_url .Params.link }}
+    {{ if $isExternal }}
+    {{ $externalUrl := .Params.external_url | default .Params.link }}
+    {{ $sourceName := .Params.source | default "an external platform" }}
+    <div class="external-post-banner">
+        <p class="external-banner-text">This article was originally published on <strong>{{ $sourceName }}</strong>.</p>
+        <a href="{{ $externalUrl }}" target="_blank" rel="noopener noreferrer" class="external-banner-link">[read on {{ $sourceName }} ↗]</a>
+    </div>
+    {{ end }}
+
     {{ $globalToc := false }}
     {{ if isset site.Params.theme_config "toc" }}
         {{ $globalToc = site.Params.theme_config.toc }}

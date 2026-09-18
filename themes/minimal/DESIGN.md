@@ -638,6 +638,18 @@ pre {
 }
 ```
 
+### 6. External Posts & Indicators
+Omarchy adheres to **Text Over Icons**. External posts from third-party platforms (Medium, Reddit, Substack) are integrated into standard post listings and decorated with an ASCII indicator badge:
+- Badge indicator: `[medium ↗]`, `[reddit ↗]`, or `[ext ↗]` using monospace text and the standard north-east arrow.
+- Direct links: In archives, post titles link directly to external destinations with `target="_blank" rel="noopener noreferrer"`.
+- Dedicated banner: Direct page views feature a 1px outline banner directing visitors to the original platform.
+
+### 7. Unsplash-Style Flexible Gallery
+- Masonry photo grid implemented with native CSS multi-columns (`column-count: 3; column-gap: 1rem;`).
+- Zero border-radius (`0px`), crisp 1px borders around every photo frame.
+- Bottom gradient caption overlay: reveals smoothly on hover (`opacity: 0` -> `opacity: 1`, `transform: translateY(4px)` -> `translateY(0)`).
+- Full compatibility with the modal lightbox zoom overlay.
+
 ---
 
 ## 7. How to Apply These to the Minimal Theme
@@ -721,11 +733,19 @@ All visual and functional parameters can be configured directly in your site's `
 | Parameter | Type | Default | Purpose |
 | :--- | :--- | :--- | :--- |
 | `show_blog` | bool | `true` | Display `[blog]` link in header |
+| `show_gallery` | bool | `false` | Display `[gallery]` link in header |
 | `show_rss` | bool | `true` | Display `[rss]` link in header |
 | `show_theme_toggle` | bool | `true` | Display `[theme]` toggle button in header |
 | `show_tags` | bool | `true` | Display `#tags` on post listing cards |
 
-### 6. Feature Flags (`[params.features]`)
+### 6. Gallery Grid Configuration (`[params.gallery]`)
+| Parameter | Type | Default | Target CSS Variable / Purpose |
+| :--- | :--- | :--- | :--- |
+| `columns` | int | `3` | `--gallery-columns` (Desktop column count) |
+| `gap` | string | `"1rem"` | `--gallery-gap` (Grid spacing) |
+| `show_caption_hover` | bool | `true` | Display subtle caption overlay on hover |
+
+### 7. Feature Flags (`[params.features]`)
 | Parameter | Type | Default | Purpose |
 | :--- | :--- | :--- | :--- |
 | `lightbox` | bool | `true` | Enable clickable post image zoom overlay |

@@ -1,0 +1,3 @@
+<div class="gallery-grid"{{ if or (.Get "columns") (.Get "gap") }} style="{{ with .Get "columns" }}--gallery-columns: {{ . }};{{ end }}{{ with .Get "gap" }}--gallery-gap: {{ . }};{{ end }}"{{ end }}>
+  {{ .Inner }}
+</div>

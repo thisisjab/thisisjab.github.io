@@ -26,10 +26,16 @@
       <p class="posts-year">{{ .Key }}</p>
       <ul class="posts-list">
           {{ range .Pages }}
+          {{ $isExternal := or .Params.external_url .Params.link }}
+          {{ $postUrl := .Params.external_url | default .Params.link | default .RelPermalink }}
+          {{ $sourceName := .Params.source | default "ext" }}
           <li class="post-item">
               <div class="post-entry">
                   <time class="post-date" datetime="{{ .Date }}">{{ .Date | time.Format (site.Params.theme_config.date_format | default "2006-01-02") }}</time>
-                  <a href="{{ .RelPermalink }}" class="post-title">{{ .Title }}</a>
+                  <a href="{{ $postUrl }}" class="post-title"{{ if $isExternal }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Title }}</a>
+                  {{ if $isExternal }}
+                  <span class="post-external-badge">[{{ $sourceName }} ↗]</span>
+                  {{ end }}
               </div>
               {{ if and $showTags .Params.tags }}
               <div class="post-tags">

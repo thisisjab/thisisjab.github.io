@@ -47,6 +47,10 @@
         {{- with site.Params.layout.content_padding }}--content-padding: {{ . | safeCSS }};{{ end -}}
         {{- with site.Params.layout.header_padding }}--header-padding: {{ . | safeCSS }};{{ end -}}
 
+        {{- /* Gallery Grid */ -}}
+        {{- with site.Params.gallery.columns }}--gallery-columns: {{ . | safeCSS }};{{ end -}}
+        {{- with site.Params.gallery.gap }}--gallery-gap: {{ . | safeCSS }};{{ end -}}
+
         {{- /* Colors & Accents */ -}}
         {{- $accentColor := site.Params.colors.accent_color | default site.Params.theme_config.accent_color -}}
         {{- with $accentColor }}--link-color: {{ . | safeCSS }} !important; --visited-link-color: {{ . | safeCSS }} !important;{{ end -}}

@@ -35,10 +35,16 @@
     {{ end }}
     <ul class="posts-list">
         {{- range $post := $posts -}}
+        {{ $isExternal := or $post.Params.external_url $post.Params.link }}
+        {{ $postUrl := $post.Params.external_url | default $post.Params.link | default $post.RelPermalink }}
+        {{ $sourceName := $post.Params.source | default "ext" }}
         <li class="post-item">
             <div class="post-entry">
                 <time class="post-date" datetime="{{ $post.Date }}">{{- ($post.Date | time.Format (site.Params.theme_config.date_format | default "2006-01-02")) }}</time>
-                <a href="{{ $post.RelPermalink }}" class="post-title">{{ $post.Title }}</a>
+                <a href="{{ $postUrl }}" class="post-title"{{ if $isExternal }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ $post.Title }}</a>
+                {{ if $isExternal }}
+                <span class="post-external-badge">[{{ $sourceName }} ↗]</span>
+                {{ end }}
             </div>
             {{ if or $.show_tags (ne $.show_tags false) }}
             {{ with $post.Params.tags }}
