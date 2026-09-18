@@ -173,19 +173,19 @@ taxonomies = { tag = "tags" }
   # ============================================================================
   [params.background_characters]
     # Master toggle: disabled globally by default, can be enabled per-page/post
-    enable                = false
+    enable                = true
 
     # Density of characters (count placed in outer gutters; 0 to disable)
-    density               = 24
+    density               = 18
 
     # Characters to pick from (default: ["*"], e.g. ["*", "+", "·"])
-    characters            = ["*"]
+    characters            = ["*", "+"]
 
-    # Animation speed in seconds (0 = disabled/static; e.g. 2 = move every 2 seconds)
-    animation_speed       = 0
+    # Animation interval in seconds (0 = disabled/static; e.g. 2 = reposition every 2 seconds)
+    animation_seconds     = 0.5
 
     # Number of characters (n) to reposition on each interval tick
-    animation_count       = 1
+    animation_count       = 5
 
     # Base character color (e.g. "#666666").
     # If empty (""), automatically uses the active theme's non-primary muted color (dark or light, not primary)

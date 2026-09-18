@@ -3,6 +3,13 @@ title = "Gallery"
 date = 2026-09-19T00:00:00+03:30
 draft = false
 
+[background_characters]
+enable          = true
+density         = 24
+characters      = ["*", "+"]
+animation_seconds = 0.5
+animation_count = 2
+
 [[images]]
 src = "/images/photography/train.webp"
 caption = "Train rail through the mountains at dusk"
@@ -24,4 +31,4 @@ caption = "Profile portrait in monochrome"
 alt = "Profile portrait"
 +++
 
-A collection of photography, architecture diagrams, and visual experiments.
+A collection of photography.

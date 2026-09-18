@@ -32,19 +32,23 @@
   {{ $chars = site.Params.background_characters.characters }}
 {{ end }}
 
-{{/* 4. Resolve Animation Speed (seconds; 0 = disabled) */}}
-{{ $animSpeed := 0 }}
+{{/* 4. Resolve Animation Interval Seconds (0 = disabled) */}}
+{{ $animSeconds := 0 }}
 {{ if and (isset .Params "background_characters") (reflect.IsMap .Params.background_characters) }}
-  {{ if isset .Params.background_characters "animation_speed" }}
-    {{ $animSpeed = .Params.background_characters.animation_speed }}
+  {{ if isset .Params.background_characters "animation_seconds" }}
+    {{ $animSeconds = .Params.background_characters.animation_seconds }}
+  {{ else if isset .Params.background_characters "animation_speed" }}
+    {{ $animSeconds = .Params.background_characters.animation_speed }}
   {{ else if isset .Params.background_characters "animation" }}
-    {{ $animSpeed = .Params.background_characters.animation }}
+    {{ $animSeconds = .Params.background_characters.animation }}
   {{ end }}
 {{ else if isset site.Params "background_characters" }}
-  {{ if isset site.Params.background_characters "animation_speed" }}
-    {{ $animSpeed = site.Params.background_characters.animation_speed }}
+  {{ if isset site.Params.background_characters "animation_seconds" }}
+    {{ $animSeconds = site.Params.background_characters.animation_seconds }}
+  {{ else if isset site.Params.background_characters "animation_speed" }}
+    {{ $animSeconds = site.Params.background_characters.animation_speed }}
   {{ else if isset site.Params.background_characters "animation" }}
-    {{ $animSpeed = site.Params.background_characters.animation }}
+    {{ $animSeconds = site.Params.background_characters.animation }}
   {{ end }}
 {{ end }}
 
@@ -82,7 +86,7 @@
 <div class="bg-characters" id="bg-characters"
      data-density="{{ $density }}"
      data-chars='{{ $chars | jsonify }}'
-     data-speed="{{ $animSpeed }}"
+     data-seconds="{{ $animSeconds }}"
      data-count="{{ $animCount }}"
      style="{{ with $color }}--bg-char-custom-color: {{ . | safeCSS }};{{ end }}{{ with $colorDark }}--bg-char-color-dark: {{ . | safeCSS }};{{ end }}{{ with $colorLight }}--bg-char-color-light: {{ . | safeCSS }};{{ end }}"
      aria-hidden="true"></div>
@@ -165,11 +169,11 @@
       }
       container.appendChild(fragment);
 
-      const speed = parseFloat(container.getAttribute("data-speed")) || 0;
+      const seconds = parseFloat(container.getAttribute("data-seconds")) || parseFloat(container.getAttribute("data-speed")) || 0;
       const count = parseInt(container.getAttribute("data-count"), 10) || 1;
       const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      if (speed > 0 && spans.length > 0 && !prefersReducedMotion) {
+      if (seconds > 0 && spans.length > 0 && !prefersReducedMotion) {
         function tick() {
           if (!isVisible || document.hidden) return;
           if (leftGutterWidth < 25 && rightGutterWidth < 25) return;
@@ -197,7 +201,7 @@
           });
         }
 
-        animTimer = setInterval(tick, speed * 1000);
+        animTimer = setInterval(tick, seconds * 1000);
 
         // Pause animation when background character field is scrolled out of viewport
         if ("IntersectionObserver" in window) {

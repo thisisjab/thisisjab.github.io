@@ -757,7 +757,7 @@ All visual and functional parameters can be configured directly in your site's `
 | `enable` | bool | `false` | Master toggle (disabled globally, can be enabled per-page or per-post) |
 | `density` | int | `24` | Count of characters scattered in outer gutters (`0` disables) |
 | `characters` | list[string] | `["*"]` | Character set randomly chosen from (e.g. `["*"]`, `["*", "+", "·"]`) |
-| `animation_speed` | float / int | `0` | Interval in seconds between position updates (`0` disables animation) |
+| `animation_seconds` | float / int | `0` | Interval in seconds between position updates (`0` disables animation) |
 | `animation_count` | int | `1` | Number of characters ($n$) repositioned on each interval tick |
 | `color` | string | `""` | Base character color. If empty, uses active theme's non-primary muted color |
 | `color_dark` | string | `""` | Optional override specifically for dark theme |
@@ -782,12 +782,12 @@ title = "sync.Cond: an Underrated Gem"
 date = 2026-06-14T17:08:09+03:30
 
 [background_characters]
-enable          = true
-density         = 28
-characters      = ["*", "+", "·"]
-animation_speed = 2
-animation_count = 1
-color           = "#565f89"
+enable            = true
+density           = 28
+characters        = ["*", "+", "·"]
+animation_seconds = 2
+animation_count   = 1
+color             = "#565f89"
 +++
 ```
 
