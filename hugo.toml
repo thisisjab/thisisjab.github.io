@@ -134,7 +134,7 @@ taxonomies = { tag = "tags" }
     show_blog             = true
 
     # Display the [gallery] link in the header top bar
-    show_gallery          = true
+    show_gallery          = false
 
     # Display the [rss] feed link in the header top bar
     show_rss              = true
