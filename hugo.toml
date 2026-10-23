@@ -6,6 +6,10 @@ theme        = 'minimal'
 taxonomies = { tag = "tags" }
 
 [markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe           = true
+
   [markup.highlight]
     codeFences         = true
     anchorLineNos      = true
@@ -130,6 +134,9 @@ taxonomies = { tag = "tags" }
   # 5. Header Navigation & Controls
   # ============================================================================
   [params.navigation]
+    # Display the [git] tutorial link in the header top bar
+    show_git_tutorial     = true
+
     # Display the [blog] link in the header top bar
     show_blog             = true
 

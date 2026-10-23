@@ -7,11 +7,11 @@
 <!doctype html>
 <html lang="{{ site.Language.Locale | default "en-us" }}">
   {{- partial "head.html" . -}}
-  <body a="auto">
+  <body a="auto"{{ with .Params.body_class }} class="{{ . }}"{{ end }}>
     {{- partial "header.html" . -}}
     <main class="page-content" aria-label="Content">
       {{- partial "bg_characters.html" . -}}
-      <div class="w">
+      <div class="w{{ with .Params.container_class }} {{ . }}{{ end }}">
         {{- block "main" . }}{{- end }}
       </div>
     </main>

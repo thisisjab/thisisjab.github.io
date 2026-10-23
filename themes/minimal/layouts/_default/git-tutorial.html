@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale | default "en-us" }}">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/images/favicon.webp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+    <title>{{ .Title }} · Interactive Workbench</title>
+    {{ $options := (dict "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction)) }}
+    {{ $sass := resources.Get "css/main.scss" }}
+    {{ $style := $sass | css.Sass $options | resources.Fingerprint "sha512" }}
+    <link rel="stylesheet" href="{{ $style.Permalink | relURL }}" integrity="{{ $style.Data.Integrity }}" />
+    <script>
+        function initThemeToggle() {
+            const button = document.querySelector(".theme-toggle");
+            if (!button) return;
+            const body = document.body;
+            const savedTheme = localStorage.getItem("theme") ?? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+            body.setAttribute("a", savedTheme);
+            localStorage.setItem("theme", savedTheme);
+            button.addEventListener("click", (e) => {
+                e.preventDefault();
+                const newTheme = body.getAttribute("a") === "dark" ? "light" : "dark";
+                body.setAttribute("a", newTheme);
+                localStorage.setItem("theme", newTheme);
+            });
+        }
+        document.addEventListener("DOMContentLoaded", initThemeToggle);
+    </script>
+</head>
+<body class="gt-app-body" a="auto">
+  <div class="gt-app" id="gtApp">
+    <!-- Top Toolbar: Minimal Window Header -->
+    <header class="gt-app-topbar">
+      <div class="gt-topbar-brand">
+        <span class="gt-brand-title">[git tutorial workbench]</span>
+      </div>
+      <div class="gt-topbar-nav">
+        <button type="button" class="gt-btn-ctrl" id="gtBtnPrev">&lt;&lt;&lt; prev</button>
+        <span class="gt-slide-indicator-top" id="gtSlideIndicatorTop">Slide 01 / 18</span>
+        <button type="button" class="gt-btn-ctrl" id="gtBtnNext">next &gt;&gt;&gt;</button>
+      </div>
+      <div class="gt-topbar-links">
+        <button type="button" class="gt-btn-ctrl theme-toggle" aria-label="Toggle theme">[theme]</button>
+        <a href="{{ "" | relURL }}" class="gt-link-back">&lt;&lt;&lt; blog</a>
+      </div>
+    </header>
+
+    <!-- Main Application Frame: Sidebar + Canvas -->
+    <div class="gt-app-frame">
+      <!-- LEFT SIDEBAR: Tutorial Slide & Goals -->
+      <aside class="gt-sidebar" id="gtSidebar">
+        <div class="gt-sidebar-header">
+          <span class="gt-slide-badge" id="gtSlideBadge">Loading...</span>
+          <h1 class="gt-slide-title" id="gtSlideTitle">...</h1>
+        </div>
+
+        <div class="gt-sidebar-content" id="gtSidebarContent">
+          <!-- Injected dynamically by JS -->
+        </div>
+
+        <div class="gt-sidebar-footer">
+          <button type="button" class="gt-btn-ctrl" id="gtBtnPrevBottom">&lt;&lt;&lt; prev</button>
+          <span style="font-size:0.75rem; color:var(--muted-color);" id="gtSlidePillsHint">keys: ← / →</span>
+          <button type="button" class="gt-btn-ctrl" id="gtBtnNextBottom">next &gt;&gt;&gt;</button>
+        </div>
+      </aside>
+
+      <!-- RIGHT MAIN CANVAS: Top 2D DAG + Bottom Terminal -->
+      <main class="gt-main-canvas">
+        <!-- TOP: Git Tree Overview (2D Branching DAG) -->
+        <section class="gt-dag-section" aria-label="Git Tree Overview">
+          <div class="gt-dag-toolbar">
+            <span class="gt-dag-heading">Git Tree Overview (2D Branching DAG)</span>
+            <div class="gt-dag-legend">
+              <span class="gt-leg-item leg-main">[— main]</span>
+              <span class="gt-leg-item leg-feat">[— branches]</span>
+              <span class="gt-leg-item leg-remote">[☁ remote]</span>
+              <span class="gt-leg-item leg-head">[HEAD]</span>
+            </div>
+          </div>
+          <div class="gt-dag-viewport" id="gtDagViewport">
+            <!-- 2D SVG DAG rendered here -->
+          </div>
+        </section>
+
+        <!-- BOTTOM: Interactive Terminal Simulator -->
+        <section class="gt-term-section" aria-label="Interactive Terminal">
+          <div class="gt-term-bar">
+            <span class="gt-term-title">terminal: jab@workbench: ~/repo</span>
+            <div class="gt-term-actions">
+              <button type="button" class="gt-term-btn" id="gtBtnResetSlide" title="Reset this slide to starting state">[reset slide]</button>
+              <button type="button" class="gt-term-btn" id="gtBtnClear" title="Clear terminal screen">[clear]</button>
+            </div>
+          </div>
+
+          <div class="gt-term-screen" id="gtTermScreen" role="log" aria-live="polite"></div>
+
+          <div class="gt-term-input-row">
+            <span class="gt-prompt">jab@workbench:<span class="gt-p-dir">~/repo</span> (<span class="gt-p-branch" id="gtPromptBranch">main</span>) $ </span>
+            <input type="text" class="gt-input" id="gtTermInput" placeholder="run command or tap a quick chip..." autocomplete="off" spellcheck="false" />
+          </div>
+
+          <div class="gt-chips-bar" id="gtChipsBar"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  {{ $js := resources.Get "js/git-tutorial.js" }}
+  {{ if $js }}
+  {{ $jsFingerprinted := $js | resources.Fingerprint "sha512" }}
+  <script type="text/javascript" src="{{ $jsFingerprinted.Permalink | relURL }}" integrity="{{ $jsFingerprinted.Data.Integrity }}"></script>
+  {{ end }}
+</body>
+</html>

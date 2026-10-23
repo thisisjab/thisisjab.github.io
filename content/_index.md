@@ -8,6 +8,10 @@ location = "Iran"
 links_title = "Links"
 
 [[links]]
+name = "[git tutorial]"
+url = "/git-tutorial"
+
+[[links]]
 name = "[github]"
 url = "https://github.com/thisisjab"
 
@@ -23,4 +27,4 @@ Hey! I am Jab (M. Hossein Jabbarzadeh to be precise). Welcome to my digital work
 
 I’m a software & devops engineer specializing in **Go** and **Python**, with a focus on building high-throughput data pipelines, resilient distributed systems, and software crafted with character and purpose.
 
-You can reach me at [heythisisjab@gmail.com](mailto:heythisisjab@gmail.com), or head over to the [about page](/about) to learn more about my background and journey.
+You can reach me at [heythisisjab@gmail.com](mailto:heythisisjab@gmail.com), explore my interactive [Git Tutorial](/git-tutorial/), or head over to the [about page](/about) to learn more about my background and journey.

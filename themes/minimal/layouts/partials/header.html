@@ -17,6 +17,16 @@
       <a href="{{ "posts/" | relURL }}" class="nav-item">[blog]</a>
       {{ end }}
 
+      {{ $showGit := false }}
+      {{ if isset site.Params "navigation" }}
+        {{ if isset site.Params.navigation "show_git_tutorial" }}
+          {{ $showGit = site.Params.navigation.show_git_tutorial }}
+        {{ end }}
+      {{ end }}
+      {{ if $showGit }}
+      <a href="{{ "git-tutorial/" | relURL }}" class="nav-item">[git]</a>
+      {{ end }}
+
       {{ $showGallery := false }}
       {{ if isset site.Params "navigation" }}
         {{ if isset site.Params.navigation "show_gallery" }}
