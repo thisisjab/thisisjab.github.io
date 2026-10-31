@@ -9,7 +9,7 @@
 // - Right Bottom: Docked interactive terminal emulator with real prompt and execution.
 // ==============================================================================
 
-html, body.gt-app-body {
+body.gt-app-body {
     width: 100vw;
     height: 100vh;
     margin: 0;
@@ -19,10 +19,10 @@ html, body.gt-app-body {
     color: var(--primary-text-color, #ffffff);
     font-family: var(--font-body, "Cascadia Code", monospace);
     box-sizing: border-box;
-}
 
-*, *::before, *::after {
-    box-sizing: border-box;
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
 }
 
 // ------------------------------------------------------------------------------
